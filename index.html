@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>⚔️ Айнкрад</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="game">
+        <h1>⚔️ АЙНКРАД</h1>
+        <p class="subtitle">САГА О ГЕРОЯХ</p>
+
+        <div id="loginSection">
+            <div class="tab-switch">
+                <button class="active" id="tabLogin">🔑 ВХОД</button>
+                <button id="tabRegister">📝 РЕГИСТР.</button>
+            </div>
+
+            <div class="login-form" id="loginForm">
+                <input type="text" id="loginUsername" placeholder="👤 НИК" />
+                <input type="password" id="loginPassword" placeholder="🔒 ПАРОЛЬ" />
+                <button id="loginBtn">🔑 ВОЙТИ</button>
+            </div>
+
+            <div class="login-form hidden" id="registerForm">
+                <input type="text" id="registerUsername" placeholder="👤 ПРИДУМАЙТЕ НИК" />
+                <input type="password" id="registerPassword" placeholder="🔒 ПАРОЛЬ" />
+                <input type="password" id="registerPasswordConfirm" placeholder="🔒 ПОВТОРИТЕ" />
+                <button id="registerBtn">📝 СОЗДАТЬ</button>
+            </div>
+        </div>
+
+        <div class="status" id="status">🔑 ВОЙДИТЕ ИЛИ ЗАРЕГИСТРИРУЙТЕСЬ</div>
+
+        <div id="gameWorld" class="hidden">
+            <h2>🗺️ КАРТА МИРА</h2>
+            <p>Ваша карта будет здесь!</p>
+            <button id="logoutBtn">🚪 ВЫЙТИ</button>
+        </div>
+
+        <div class="step-hint">💡 ИГРА РАБОТАЕТ НА VERCEL</div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
