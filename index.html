@@ -9,10 +9,13 @@
 </head>
 <body>
     <div class="game" id="app">
+        <!-- ФОН -->
         <div class="game-bg"></div>
 
+        <!-- ЛОГОТИП -->
         <img src="assets/logo_aincrad-8x.png" alt="Айнкрад" class="logo" />
 
+        <!-- АВТОРИЗАЦИЯ -->
         <div id="authSection">
             <div class="tab-switch">
                 <button class="active" id="tabLogin">
@@ -25,6 +28,7 @@
                 </button>
             </div>
 
+            <!-- ФОРМА ВХОДА -->
             <div class="login-form" id="loginForm">
                 <div class="input-wrapper">
                     <img src="assets/icon_user.png" alt="" class="input-icon" />
@@ -34,7 +38,7 @@
                     <img src="assets/icon_lock.png" alt="" class="input-icon" />
                     <input type="password" id="loginPassword" placeholder="ПАРОЛЬ" />
                     <button type="button" class="toggle-password" data-target="loginPassword" aria-label="Показать пароль">
-                        <span class="eye-icon">👁️</span>
+                        <img src="assets/eye_closed.png" alt="Показать пароль" class="eye-icon" />
                     </button>
                 </div>
                 <button id="loginBtn">
@@ -43,6 +47,7 @@
                 </button>
             </div>
 
+            <!-- ФОРМА РЕГИСТРАЦИИ -->
             <div class="login-form hidden" id="registerForm">
                 <div class="input-wrapper">
                     <img src="assets/icon_user.png" alt="" class="input-icon" />
@@ -52,14 +57,14 @@
                     <img src="assets/icon_lock.png" alt="" class="input-icon" />
                     <input type="password" id="registerPassword" placeholder="ПАРОЛЬ" />
                     <button type="button" class="toggle-password" data-target="registerPassword" aria-label="Показать пароль">
-                        <span class="eye-icon">👁️</span>
+                        <img src="assets/eye_closed.png" alt="Показать пароль" class="eye-icon" />
                     </button>
                 </div>
                 <div class="input-wrapper password-wrapper">
                     <img src="assets/icon_lock.png" alt="" class="input-icon" />
                     <input type="password" id="registerPasswordConfirm" placeholder="ПОВТОРИТЕ ПАРОЛЬ" />
                     <button type="button" class="toggle-password" data-target="registerPasswordConfirm" aria-label="Показать пароль">
-                        <span class="eye-icon">👁️</span>
+                        <img src="assets/eye_closed.png" alt="Показать пароль" class="eye-icon" />
                     </button>
                 </div>
                 <button id="registerBtn">
@@ -69,8 +74,10 @@
             </div>
         </div>
 
+        <!-- СТАТУС -->
         <div class="status" id="status"></div>
 
+        <!-- ИГРОВОЙ МИР -->
         <div id="gameWorld" class="hidden">
             <h2>🗺️ КАРТА МИРА</h2>
             <p>Ваша карта будет здесь!</p>
