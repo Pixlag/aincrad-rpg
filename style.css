@@ -44,12 +44,12 @@ body {
     z-index: 1;
 }
 
-/* === ЛОГОТИП (В 2 РАЗА БОЛЬШЕ) === */
+/* === ЛОГОТИП (БОЛЬШЕ) === */
 .logo {
     display: block;
     margin: 0 auto 16px;
     max-width: 100%;
-    width: 320px;  /* было 160px, теперь в 2 раза больше */
+    width: 400px;  /* было 320px, теперь ещё больше */
     height: auto;
     image-rendering: pixelated;
 }
@@ -199,22 +199,20 @@ body {
     flex-shrink: 0;
 }
 
-/* === СТАТУС (УБРАЛ ТЕКСТ) === */
+/* === СТАТУС (БЕЗ РАМКИ) === */
 .status {
     margin-top: 12px;
-    padding: 10px 14px;
-    background: #0a0a0a;
-    border: 2px solid #3a3a3a;
-    border-radius: 4px;
+    padding: 8px 10px;
+    background: transparent;
+    border: none;
     font-size: 9px;
     text-align: center;
-    min-height: 45px;
+    min-height: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: #888888;
     image-rendering: pixelated;
-    /* текст будет добавляться через JS, но начальный текст убран */
 }
 
 /* === СКРЫТЫЕ ЭЛЕМЕНТЫ === */
@@ -266,7 +264,7 @@ body {
         padding: 16px 14px;
     }
     .logo {
-        width: 200px; /* на телефоне тоже в 2 раза больше */
+        width: 260px;
     }
     .tab-switch button img {
         width: 100px;
@@ -298,7 +296,7 @@ body {
     }
     .status {
         font-size: 8px;
-        min-height: 38px;
-        padding: 8px 10px;
+        min-height: 25px;
+        padding: 6px 8px;
     }
 }
