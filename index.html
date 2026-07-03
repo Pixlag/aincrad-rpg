@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="game" id="app">
-        <!-- ФОН (рисуется через CSS) -->
+        <!-- ФОН (через CSS с вашей картинкой) -->
         <div class="game-bg"></div>
 
         <!-- ЛОГОТИП -->
@@ -19,10 +19,12 @@
         <div id="authSection">
             <div class="tab-switch">
                 <button class="active" id="tabLogin">
-                    <img src="assets/tab_button_active_log_in.png" alt="ВХОД" />
+                    <img src="assets/tab_button_active_log_in.png" alt="" />
+                    <span>ВХОД</span>
                 </button>
                 <button id="tabRegister">
-                    <img src="assets/tab_button_registr.png" alt="РЕГИСТР." />
+                    <img src="assets/tab_button_registr.png" alt="" />
+                    <span>РЕГИСТР.</span>
                 </button>
             </div>
 
@@ -61,10 +63,10 @@
             </div>
         </div>
 
-        <!-- СТАТУС (без спрайта, просто текст) -->
+        <!-- СТАТУС -->
         <div class="status" id="status">🔑 ВОЙДИТЕ ИЛИ ЗАРЕГИСТРИРУЙТЕСЬ</div>
 
-        <!-- ИГРОВОЙ МИР (скрыт) -->
+        <!-- ИГРОВОЙ МИР -->
         <div id="gameWorld" class="hidden">
             <h2>🗺️ КАРТА МИРА</h2>
             <p>Ваша карта будет здесь!</p>
