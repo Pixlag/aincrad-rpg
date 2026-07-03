@@ -1,5 +1,5 @@
 // ============================================================
-//  🎮 ПРОСТАЯ ИГРА (ЛОКАЛЬНАЯ ВЕРСИЯ)
+//  🎮 АЙНКРАД — ПОЛНАЯ ИГРА
 // ============================================================
 
 // --- ЭЛЕМЕНТЫ ---
@@ -24,10 +24,9 @@ const tabRegister = document.getElementById('tabRegister');
 const logoutBtn = document.getElementById('logoutBtn');
 const statusEl = document.getElementById('status');
 
-// --- ГЛАЗИКИ ДЛЯ ПАРОЛЯ (ИСПРАВЛЕНО) ---
+// --- ГЛАЗИКИ ДЛЯ ПАРОЛЯ (СПРАЙТЫ) ---
 function initPasswordToggles() {
     document.querySelectorAll('.toggle-password').forEach(button => {
-        // Убираем старые обработчики, чтобы не дублировались
         button.removeEventListener('click', togglePassword);
         button.addEventListener('click', togglePassword);
     });
@@ -43,10 +42,11 @@ function togglePassword(e) {
     const isPassword = input.type === 'password';
     input.type = isPassword ? 'text' : 'password';
 
-    // Меняем иконку глаз
+    // Меняем картинку глаз
     const icon = button.querySelector('.eye-icon');
     if (icon) {
-        icon.textContent = isPassword ? '🙈' : '👁️';
+        icon.src = isPassword ? 'assets/eye_open.png' : 'assets/eye_closed.png';
+        icon.alt = isPassword ? 'Скрыть пароль' : 'Показать пароль';
     }
 }
 
