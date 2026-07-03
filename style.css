@@ -25,6 +25,7 @@ body {
     overflow: hidden;
 }
 
+/* === ФОН === */
 .game-bg {
     position: absolute;
     top: 0;
@@ -43,6 +44,7 @@ body {
     z-index: 1;
 }
 
+/* === ЛОГОТИП === */
 .logo {
     display: block;
     margin: 0 auto 16px;
@@ -52,6 +54,7 @@ body {
     image-rendering: pixelated;
 }
 
+/* === КНОПКИ ВКЛАДОК === */
 .tab-switch {
     display: flex;
     gap: 8px;
@@ -122,7 +125,7 @@ body {
 
 .input-wrapper input {
     width: 100%;
-    padding: 12px 40px 12px 40px; /* справа место для глазика */
+    padding: 12px 44px 12px 40px;
     background: url('assets/input_field.png') no-repeat center center;
     background-size: 100% 100%;
     border: none;
@@ -138,11 +141,7 @@ body {
     color: #5a5a5a;
 }
 
-/* === ГЛАЗИК ДЛЯ ПАРОЛЯ === */
-.password-wrapper {
-    position: relative;
-}
-
+/* === ГЛАЗИК (СПРАЙТЫ) === */
 .password-wrapper .toggle-password {
     position: absolute;
     right: 12px;
@@ -153,16 +152,15 @@ body {
     cursor: pointer;
     padding: 4px;
     z-index: 2;
-    font-size: 16px;
-    line-height: 1;
     image-rendering: pixelated;
 }
 
 .password-wrapper .toggle-password .eye-icon {
-    font-size: 16px;
+    width: 16px;
+    height: 16px;
     display: block;
-    transition: opacity 0.2s;
     image-rendering: pixelated;
+    transition: opacity 0.2s;
 }
 
 .password-wrapper .toggle-password:hover .eye-icon {
@@ -228,6 +226,7 @@ body {
     flex-shrink: 0;
 }
 
+/* === СТАТУС === */
 .status {
     margin-top: 12px;
     padding: 8px 10px;
@@ -243,10 +242,12 @@ body {
     image-rendering: pixelated;
 }
 
+/* === СКРЫТЫЕ ЭЛЕМЕНТЫ === */
 .hidden {
     display: none !important;
 }
 
+/* === ИГРОВОЙ МИР === */
 #gameWorld {
     margin-top: 16px;
     padding: 16px;
@@ -280,6 +281,7 @@ body {
     color: #d4c5a0;
 }
 
+/* === АДАПТИВ === */
 @media (max-width: 500px) {
     .game {
         width: 100%;
@@ -308,7 +310,7 @@ body {
     .input-wrapper input {
         font-size: 8px;
         height: 38px;
-        padding: 8px 36px 8px 34px;
+        padding: 8px 38px 8px 34px;
     }
     .input-wrapper .input-icon {
         width: 14px;
@@ -319,7 +321,8 @@ body {
         right: 8px;
     }
     .password-wrapper .toggle-password .eye-icon {
-        font-size: 14px;
+        width: 14px;
+        height: 14px;
     }
     .btn-icon {
         width: 14px;
