@@ -24,24 +24,43 @@ const tabRegister = document.getElementById('tabRegister');
 const logoutBtn = document.getElementById('logoutBtn');
 const statusEl = document.getElementById('status');
 
-// --- ГЛАЗИКИ ДЛЯ ПАРОЛЯ ---
-document.querySelectorAll('.toggle-password').forEach(button => {
-    button.addEventListener('click', function() {
-        const targetId = this.dataset.target;
-        const input = document.getElementById(targetId);
-        if (!input) return;
-
-        // Переключаем тип поля
-        const isPassword = input.type === 'password';
-        input.type = isPassword ? 'text' : 'password';
-
-        // Меняем иконку глаз
-        const icon = this.querySelector('.eye-icon');
-        if (icon) {
-            icon.textContent = isPassword ? '🙈' : '👁️';
-        }
+// --- ГЛАЗИКИ ДЛЯ ПАРОЛЯ (ИСПРАВЛЕНО) ---
+function initPasswordToggles() {
+    document.querySelectorAll('.toggle-password').forEach(button => {
+        // Убираем старые обработчики, чтобы не дублировались
+        button.removeEventListener('click', togglePassword);
+        button.addEventListener('click', togglePassword);
     });
+}
+
+function togglePassword(e) {
+    const button = e.currentTarget;
+    const targetId = button.dataset.target;
+    const input = document.getElementById(targetId);
+    if (!input) return;
+
+    // Переключаем тип поля
+    const isPassword = input.type === 'password';
+    input.type = isPassword ? 'text' : 'password';
+
+    // Меняем иконку глаз
+    const icon = button.querySelector('.eye-icon');
+    if (icon) {
+        icon.textContent = isPassword ? '🙈' : '👁️';
+    }
+}
+
+// Запускаем инициализацию при загрузке страницы
+document.addEventListener('DOMContentLoaded', function() {
+    initPasswordToggles();
 });
+
+// Также запускаем сразу, если DOM уже загружен
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPasswordToggles);
+} else {
+    initPasswordToggles();
+}
 
 // --- ФУНКЦИИ ---
 function showStatus(msg, type = 'info') {
