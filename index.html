@@ -4,42 +4,74 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>⚔️ Айнкрад</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <div class="game">
-        <h1>⚔️ АЙНКРАД</h1>
-        <p class="subtitle">САГА О ГЕРОЯХ</p>
+    <div class="game" id="app">
+        <!-- ФОН (рисуется через CSS) -->
+        <div class="game-bg"></div>
 
-        <div id="loginSection">
+        <!-- ЛОГОТИП -->
+        <img src="assets/logo_aincrad-8x.png" alt="Айнкрад" class="logo" />
+
+        <!-- ВХОД / РЕГИСТРАЦИЯ -->
+        <div id="authSection">
             <div class="tab-switch">
-                <button class="active" id="tabLogin">🔑 ВХОД</button>
-                <button id="tabRegister">📝 РЕГИСТР.</button>
+                <button class="active" id="tabLogin">
+                    <img src="assets/tab_button_active_log_in.png" alt="ВХОД" />
+                </button>
+                <button id="tabRegister">
+                    <img src="assets/tab_button_registr.png" alt="РЕГИСТР." />
+                </button>
             </div>
 
             <div class="login-form" id="loginForm">
-                <input type="text" id="loginUsername" placeholder="👤 НИК" />
-                <input type="password" id="loginPassword" placeholder="🔒 ПАРОЛЬ" />
-                <button id="loginBtn">🔑 ВОЙТИ</button>
+                <div class="input-wrapper">
+                    <img src="assets/icon_user.png" alt="" class="input-icon" />
+                    <input type="text" id="loginUsername" placeholder="НИК ИГРОКА" />
+                </div>
+                <div class="input-wrapper">
+                    <img src="assets/icon_lock.png" alt="" class="input-icon" />
+                    <input type="password" id="loginPassword" placeholder="ПАРОЛЬ" />
+                </div>
+                <button id="loginBtn">
+                    <img src="assets/icon_key.png" alt="" class="btn-icon" />
+                    ВОЙТИ
+                </button>
             </div>
 
             <div class="login-form hidden" id="registerForm">
-                <input type="text" id="registerUsername" placeholder="👤 ПРИДУМАЙТЕ НИК" />
-                <input type="password" id="registerPassword" placeholder="🔒 ПАРОЛЬ" />
-                <input type="password" id="registerPasswordConfirm" placeholder="🔒 ПОВТОРИТЕ" />
-                <button id="registerBtn">📝 СОЗДАТЬ</button>
+                <div class="input-wrapper">
+                    <img src="assets/icon_user.png" alt="" class="input-icon" />
+                    <input type="text" id="registerUsername" placeholder="ПРИДУМАЙТЕ НИК" />
+                </div>
+                <div class="input-wrapper">
+                    <img src="assets/icon_lock.png" alt="" class="input-icon" />
+                    <input type="password" id="registerPassword" placeholder="ПАРОЛЬ" />
+                </div>
+                <div class="input-wrapper">
+                    <img src="assets/icon_lock.png" alt="" class="input-icon" />
+                    <input type="password" id="registerPasswordConfirm" placeholder="ПОВТОРИТЕ ПАРОЛЬ" />
+                </div>
+                <button id="registerBtn">
+                    <img src="assets/icon_pencil.png" alt="" class="btn-icon" />
+                    СОЗДАТЬ ГЕРОЯ
+                </button>
             </div>
         </div>
 
+        <!-- СТАТУС (без спрайта, просто текст) -->
         <div class="status" id="status">🔑 ВОЙДИТЕ ИЛИ ЗАРЕГИСТРИРУЙТЕСЬ</div>
 
+        <!-- ИГРОВОЙ МИР (скрыт) -->
         <div id="gameWorld" class="hidden">
             <h2>🗺️ КАРТА МИРА</h2>
             <p>Ваша карта будет здесь!</p>
             <button id="logoutBtn">🚪 ВЫЙТИ</button>
         </div>
 
-        <div class="step-hint">💡 ИГРА РАБОТАЕТ НА VERCEL</div>
+        <div class="step-hint">💡 ПИКСЕЛЬНЫЙ СТИЛЬ</div>
     </div>
 
     <script src="script.js"></script>
