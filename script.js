@@ -3,7 +3,7 @@
 // ============================================================
 
 // --- ЭЛЕМЕНТЫ ---
-const loginSection = document.getElementById('loginSection');
+const loginSection = document.getElementById('authSection');
 const gameWorld = document.getElementById('gameWorld');
 
 const loginForm = document.getElementById('loginForm');
@@ -24,10 +24,29 @@ const tabRegister = document.getElementById('tabRegister');
 const logoutBtn = document.getElementById('logoutBtn');
 const statusEl = document.getElementById('status');
 
+// --- ГЛАЗИКИ ДЛЯ ПАРОЛЯ ---
+document.querySelectorAll('.toggle-password').forEach(button => {
+    button.addEventListener('click', function() {
+        const targetId = this.dataset.target;
+        const input = document.getElementById(targetId);
+        if (!input) return;
+
+        // Переключаем тип поля
+        const isPassword = input.type === 'password';
+        input.type = isPassword ? 'text' : 'password';
+
+        // Меняем иконку глаз
+        const icon = this.querySelector('.eye-icon');
+        if (icon) {
+            icon.textContent = isPassword ? '🙈' : '👁️';
+        }
+    });
+});
+
 // --- ФУНКЦИИ ---
 function showStatus(msg, type = 'info') {
     statusEl.textContent = msg;
-    statusEl.style.color = type === 'success' ? '#22c55e' : type === 'error' ? '#f87171' : '#60a5fa';
+    statusEl.style.color = type === 'success' ? '#22c55e' : type === 'error' ? '#f87171' : '#888888';
 }
 
 // --- ПОЛЬЗОВАТЕЛИ (хранятся в браузере) ---
@@ -124,7 +143,7 @@ loginBtn.onclick = () => {
 logoutBtn.onclick = () => {
     gameWorld.classList.add('hidden');
     loginSection.classList.remove('hidden');
-    showStatus('👋 ВЫ ВЫШЛИ', 'info');
+    showStatus('', 'info');
     tabLogin.click();
 };
 
