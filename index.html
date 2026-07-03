@@ -9,10 +9,10 @@
 </head>
 <body>
     <div class="game" id="app">
-        <!-- ФОН (через CSS с вашей картинкой) -->
+        <!-- ФОН (ваша картинка) -->
         <div class="game-bg"></div>
 
-        <!-- ЛОГОТИП -->
+        <!-- ЛОГОТИП (в 2 раза больше) -->
         <img src="assets/logo_aincrad-8x.png" alt="Айнкрад" class="logo" />
 
         <!-- ВХОД / РЕГИСТРАЦИЯ -->
@@ -63,8 +63,8 @@
             </div>
         </div>
 
-        <!-- СТАТУС -->
-        <div class="status" id="status">🔑 ВОЙДИТЕ ИЛИ ЗАРЕГИСТРИРУЙТЕСЬ</div>
+        <!-- СТАТУС (пустой, текст добавляется через JS) -->
+        <div class="status" id="status"></div>
 
         <!-- ИГРОВОЙ МИР -->
         <div id="gameWorld" class="hidden">
@@ -72,8 +72,6 @@
             <p>Ваша карта будет здесь!</p>
             <button id="logoutBtn">🚪 ВЫЙТИ</button>
         </div>
-
-        <div class="step-hint">💡 ПИКСЕЛЬНЫЙ СТИЛЬ</div>
     </div>
 
     <script src="script.js"></script>
