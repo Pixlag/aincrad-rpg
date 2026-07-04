@@ -67,14 +67,11 @@ function initTabs() {
 
     tabs.forEach(tab => {
         tab.addEventListener('click', function() {
-            // Убираем активный класс у всех закладок
             tabs.forEach(t => t.classList.remove('active'));
             this.classList.add('active');
 
-            // Прячем все панели
             Object.values(panels).forEach(p => p.classList.add('hidden'));
 
-            // Показываем нужную панель
             const tabName = this.dataset.tab;
             if (panels[tabName]) {
                 panels[tabName].classList.remove('hidden');
@@ -82,8 +79,8 @@ function initTabs() {
         });
     });
 
-    // По умолчанию показываем карту
-    if (panels.map) panels.map.classList.remove('hidden');
+    // По умолчанию показываем профиль (первая закладка)
+    if (panels.profile) panels.profile.classList.remove('hidden');
 }
 
 // --- ФУНКЦИИ ---
@@ -179,19 +176,15 @@ loginBtn.onclick = () => {
     loginSection.classList.add('hidden');
     gameWorld.classList.remove('hidden');
 
-    // Инициализируем закладки
     initTabs();
 
-    // Обновляем профиль
     document.getElementById('profileName').textContent = username;
     document.getElementById('profileLevel').textContent = '1';
     document.getElementById('profileGold').textContent = '50';
     document.getElementById('profileKills').textContent = '0';
 
-    // Обработчики для локаций на карте
     document.querySelectorAll('.location').forEach(loc => {
         loc.addEventListener('click', function() {
-            const locName = this.dataset.loc;
             showStatus(`📍 ВЫ В ${this.textContent.trim()}`, 'info');
         });
     });
