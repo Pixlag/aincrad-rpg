@@ -28,6 +28,7 @@ const logContent = document.getElementById('logContent');
 
 // --- СОСТОЯНИЕ ИГРОКА ---
 let currentLocation = null;
+let isTabsInitialized = false;
 
 // --- ЛОГИ ---
 function addLog(message, type = 'system') {
@@ -74,8 +75,6 @@ if (document.readyState === 'loading') {
 }
 
 // --- ЗАКЛАДКИ ---
-let isTabsInitialized = false;
-
 function initTabs() {
     const tabs = document.querySelectorAll('.tab-btn:not(.tab-exit)');
     const panels = {
@@ -85,21 +84,17 @@ function initTabs() {
         settings: document.getElementById('panel-settings')
     };
 
-    // Убираем старые обработчики, чтобы не было дублей
     tabs.forEach(tab => {
         tab.removeEventListener('click', tab._clickHandler);
     });
 
     tabs.forEach(tab => {
         const handler = function() {
-            // Убираем активный класс у всех закладок
             tabs.forEach(t => t.classList.remove('active'));
             this.classList.add('active');
 
-            // Прячем все панели
             Object.values(panels).forEach(p => p.classList.add('hidden'));
 
-            // Показываем нужную
             const tabName = this.dataset.tab;
             if (panels[tabName]) {
                 panels[tabName].classList.remove('hidden');
@@ -115,7 +110,6 @@ function initTabs() {
     // Показываем только профиль
     if (panels.profile) {
         panels.profile.classList.remove('hidden');
-        // Активируем кнопку профиля
         tabs.forEach(t => t.classList.remove('active'));
         document.querySelector('.tab-btn[data-tab="profile"]')?.classList.add('active');
     }
@@ -133,13 +127,9 @@ function resetTabs() {
         settings: document.getElementById('panel-settings')
     };
 
-    // Убираем активный класс у всех закладок
     tabs.forEach(t => t.classList.remove('active'));
-
-    // Прячем все панели
     Object.values(panels).forEach(p => p.classList.add('hidden'));
 
-    // Показываем только профиль
     if (panels.profile) {
         panels.profile.classList.remove('hidden');
         document.querySelector('.tab-btn[data-tab="profile"]')?.classList.add('active');
@@ -217,19 +207,13 @@ registerBtn.onclick = () => {
 
 // --- ВЫХОД ЧЕРЕЗ ЗАКЛАДКУ ---
 document.getElementById('tabExit').addEventListener('click', function() {
-    // Показываем логотип
     mainLogo.classList.remove('hidden');
-
-    // Скрываем закладки
     tabsContainer.classList.remove('visible');
 
     gameWorld.classList.add('hidden');
     loginSection.classList.remove('hidden');
 
-    // Сбрасываем состояние закладок
     resetTabs();
-
-    // Сбрасываем текущую локацию
     currentLocation = null;
 
     showStatus('', 'info');
@@ -265,10 +249,8 @@ loginBtn.onclick = () => {
     loginSection.classList.add('hidden');
     gameWorld.classList.remove('hidden');
 
-    // Сбрасываем локацию при входе
     currentLocation = null;
 
-    // Инициализируем закладки (сбрасываем всё, открываем профиль)
     initTabs();
 
     document.getElementById('profileName').textContent = username;
@@ -276,23 +258,20 @@ loginBtn.onclick = () => {
     document.getElementById('profileGold').textContent = '50';
     document.getElementById('profileKills').textContent = '0';
 
-    // --- ОБРАБОТЧИКИ ДЛЯ ЛОКАЦИЙ (исправлено) ---
+    // --- ОБРАБОТЧИКИ ДЛЯ ЛОКАЦИЙ ---
     document.querySelectorAll('.location').forEach(loc => {
-        // Убираем старые обработчики
         loc.removeEventListener('click', loc._clickHandler);
 
         const handler = function() {
             const locName = this.textContent.trim();
             const locId = this.dataset.loc;
 
-            // Проверяем, не в этой ли мы уже локации
             if (currentLocation === locId) {
                 showStatus(`📍 ВЫ УЖЕ В ${locName}`, 'info');
                 addLog(`📍 ВЫ УЖЕ В ${locName}`, 'system');
                 return;
             }
 
-            // Перемещаемся
             currentLocation = locId;
             addLog(`📍 ПЕРЕМЕЩЕНИЕ В ${locName}`, 'player');
             showStatus(`📍 ВЫ В ${locName}`, 'info');
@@ -302,7 +281,6 @@ loginBtn.onclick = () => {
         loc.addEventListener('click', handler);
     });
 
-    // Добавляем приветствие в логи
     addLog(`🌟 ДОБРО ПОЖАЛОВАТЬ, ${username}!`, 'system');
     addLog(`📖 ВАШЕ ПРИКЛЮЧЕНИЕ НАЧИНАЕТСЯ!`, 'system');
 
