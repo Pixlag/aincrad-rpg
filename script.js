@@ -25,6 +25,21 @@ const tabRegister = document.getElementById('tabRegister');
 
 const logoutBtn = document.getElementById('logoutBtn');
 const statusEl = document.getElementById('status');
+const logContent = document.getElementById('logContent');
+
+// --- ЛОГИ ---
+function addLog(message, type = 'system') {
+    const entry = document.createElement('div');
+    entry.className = `log-entry ${type}`;
+    entry.textContent = message;
+    logContent.appendChild(entry);
+    logContent.scrollTop = logContent.scrollHeight;
+
+    // Ограничиваем количество логов
+    while (logContent.children.length > 50) {
+        logContent.removeChild(logContent.firstChild);
+    }
+}
 
 // --- ГЛАЗИКИ ---
 function initPasswordToggles() {
@@ -59,7 +74,7 @@ if (document.readyState === 'loading') {
 
 // --- ЗАКЛАДКИ ---
 function initTabs() {
-    const tabs = document.querySelectorAll('.tab-btn');
+    const tabs = document.querySelectorAll('.tab-btn:not(.tab-exit)');
     const panels = {
         profile: document.getElementById('panel-profile'),
         inventory: document.getElementById('panel-inventory'),
@@ -152,6 +167,21 @@ registerBtn.onclick = () => {
     tabLogin.click();
 };
 
+// --- ВЫХОД ЧЕРЕЗ ЗАКЛАДКУ ---
+document.getElementById('tabExit').addEventListener('click', function() {
+    // Показываем логотип обратно
+    mainLogo.classList.remove('hidden');
+
+    // Скрываем закладки
+    tabsContainer.classList.remove('visible');
+
+    gameWorld.classList.add('hidden');
+    loginSection.classList.remove('hidden');
+    showStatus('', 'info');
+    tabLogin.click();
+    addLog('👋 ВЫ ВЫШЛИ ИЗ ИГРЫ', 'system');
+});
+
 // --- ВХОД ---
 loginBtn.onclick = () => {
     const username = loginUsername.value.trim();
@@ -175,13 +205,9 @@ loginBtn.onclick = () => {
     }
 
     // ===== ВХОД В ИГРУ =====
-    // Скрываем логотип
     mainLogo.classList.add('hidden');
-
-    // Показываем закладки
     tabsContainer.classList.add('visible');
 
-    // Показываем игровой мир
     loginSection.classList.add('hidden');
     gameWorld.classList.remove('hidden');
 
@@ -194,25 +220,17 @@ loginBtn.onclick = () => {
 
     document.querySelectorAll('.location').forEach(loc => {
         loc.addEventListener('click', function() {
-            showStatus(`📍 ВЫ В ${this.textContent.trim()}`, 'info');
+            const locName = this.textContent.trim();
+            addLog(`📍 ПЕРЕМЕЩЕНИЕ В ${locName}`, 'player');
+            showStatus(`📍 ВЫ В ${locName}`, 'info');
         });
     });
 
-    showStatus('', 'info'); // Очищаем статус, убираем "Добро пожаловать"
-};
+    // Добавляем приветствие в логи
+    addLog(`🌟 ДОБРО ПОЖАЛОВАТЬ, ${username}!`, 'system');
+    addLog(`📖 ВАШЕ ПРИКЛЮЧЕНИЕ НАЧИНАЕТСЯ!`, 'system');
 
-// --- ВЫХОД ---
-logoutBtn.onclick = () => {
-    // Показываем логотип обратно
-    mainLogo.classList.remove('hidden');
-
-    // Скрываем закладки
-    tabsContainer.classList.remove('visible');
-
-    gameWorld.classList.add('hidden');
-    loginSection.classList.remove('hidden');
     showStatus('', 'info');
-    tabLogin.click();
 };
 
 console.log('🎮 АЙНКРАД ЗАГРУЖЕН!');
