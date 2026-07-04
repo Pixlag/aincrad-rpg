@@ -5,6 +5,8 @@
 // --- ЭЛЕМЕНТЫ ---
 const loginSection = document.getElementById('authSection');
 const gameWorld = document.getElementById('gameWorld');
+const mainLogo = document.getElementById('mainLogo');
+const tabsContainer = document.getElementById('tabsContainer');
 
 const loginForm = document.getElementById('loginForm');
 const registerForm = document.getElementById('registerForm');
@@ -79,7 +81,7 @@ function initTabs() {
         });
     });
 
-    // По умолчанию показываем профиль (первая закладка)
+    // По умолчанию показываем профиль
     if (panels.profile) panels.profile.classList.remove('hidden');
 }
 
@@ -172,7 +174,14 @@ loginBtn.onclick = () => {
         return;
     }
 
-    // ВХОД В ИГРУ
+    // ===== ВХОД В ИГРУ =====
+    // Скрываем логотип
+    mainLogo.classList.add('hidden');
+
+    // Показываем закладки
+    tabsContainer.classList.add('visible');
+
+    // Показываем игровой мир
     loginSection.classList.add('hidden');
     gameWorld.classList.remove('hidden');
 
@@ -189,11 +198,17 @@ loginBtn.onclick = () => {
         });
     });
 
-    showStatus(`✅ ДОБРО ПОЖАЛОВАТЬ, ${username}!`, 'success');
+    showStatus('', 'info'); // Очищаем статус, убираем "Добро пожаловать"
 };
 
 // --- ВЫХОД ---
 logoutBtn.onclick = () => {
+    // Показываем логотип обратно
+    mainLogo.classList.remove('hidden');
+
+    // Скрываем закладки
+    tabsContainer.classList.remove('visible');
+
     gameWorld.classList.add('hidden');
     loginSection.classList.remove('hidden');
     showStatus('', 'info');
