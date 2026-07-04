@@ -4,35 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>⚔️ Айнкрад</title>
-    <!-- НОВЫЙ ПИКСЕЛЬНЫЙ ШРИФТ (более красивый) -->
-    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
     <div class="game-wrapper">
-        <!-- ЗАКЛАДКИ (СНАРУЖИ, СПРАВА) -->
-        <div class="tabs-container">
-            <button class="tab-btn active" data-tab="profile" title="Профиль">
-                <img src="assets/tab_profile.png" alt="Профиль" />
-            </button>
-            <button class="tab-btn" data-tab="inventory" title="Инвентарь">
-                <img src="assets/tab_inventory.png" alt="Инвентарь" />
-            </button>
-            <button class="tab-btn" data-tab="map" title="Карта">
-                <img src="assets/tab_map.png" alt="Карта" />
-            </button>
-            <button class="tab-btn" data-tab="settings" title="Настройки">
-                <img src="assets/tab_settings.png" alt="Настройки" />
-            </button>
-        </div>
-
         <!-- ОСНОВНАЯ ИГРА -->
         <div class="game" id="app">
             <!-- ФОН -->
             <div class="game-bg"></div>
 
-            <!-- ЛОГОТИП -->
-            <img src="assets/logo_aincrad-8x.png" alt="Айнкрад" class="logo" />
+            <!-- ЛОГОТИП (скрывается после входа) -->
+            <img src="assets/logo_aincrad-8x.png" alt="Айнкрад" class="logo" id="mainLogo" />
 
             <!-- АВТОРИЗАЦИЯ -->
             <div id="authSection">
@@ -160,6 +143,22 @@
 
                 <button id="logoutBtn">🚪 ВЫЙТИ</button>
             </div>
+        </div>
+
+        <!-- ЗАКЛАДКИ (СПРАВА, СНАРУЖИ) -->
+        <div class="tabs-container" id="tabsContainer">
+            <button class="tab-btn active" data-tab="profile" title="Профиль">
+                <img src="assets/tab_profile.png" alt="Профиль" />
+            </button>
+            <button class="tab-btn" data-tab="inventory" title="Инвентарь">
+                <img src="assets/tab_inventory.png" alt="Инвентарь" />
+            </button>
+            <button class="tab-btn" data-tab="map" title="Карта">
+                <img src="assets/tab_map.png" alt="Карта" />
+            </button>
+            <button class="tab-btn" data-tab="settings" title="Настройки">
+                <img src="assets/tab_settings.png" alt="Настройки" />
+            </button>
         </div>
     </div>
 
