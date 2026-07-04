@@ -23,9 +23,11 @@ const registerBtn = document.getElementById('registerBtn');
 const tabLogin = document.getElementById('tabLogin');
 const tabRegister = document.getElementById('tabRegister');
 
-const logoutBtn = document.getElementById('logoutBtn');
 const statusEl = document.getElementById('status');
 const logContent = document.getElementById('logContent');
+
+// --- СОСТОЯНИЕ ИГРОКА ---
+let currentLocation = null;
 
 // --- ЛОГИ ---
 function addLog(message, type = 'system') {
@@ -35,7 +37,6 @@ function addLog(message, type = 'system') {
     logContent.appendChild(entry);
     logContent.scrollTop = logContent.scrollHeight;
 
-    // Ограничиваем количество логов
     while (logContent.children.length > 50) {
         logContent.removeChild(logContent.firstChild);
     }
@@ -73,6 +74,8 @@ if (document.readyState === 'loading') {
 }
 
 // --- ЗАКЛАДКИ ---
+let isTabsInitialized = false;
+
 function initTabs() {
     const tabs = document.querySelectorAll('.tab-btn:not(.tab-exit)');
     const panels = {
@@ -82,22 +85,67 @@ function initTabs() {
         settings: document.getElementById('panel-settings')
     };
 
+    // Убираем старые обработчики, чтобы не было дублей
     tabs.forEach(tab => {
-        tab.addEventListener('click', function() {
+        tab.removeEventListener('click', tab._clickHandler);
+    });
+
+    tabs.forEach(tab => {
+        const handler = function() {
+            // Убираем активный класс у всех закладок
             tabs.forEach(t => t.classList.remove('active'));
             this.classList.add('active');
 
+            // Прячем все панели
             Object.values(panels).forEach(p => p.classList.add('hidden'));
 
+            // Показываем нужную
             const tabName = this.dataset.tab;
             if (panels[tabName]) {
                 panels[tabName].classList.remove('hidden');
             }
-        });
+        };
+        tab._clickHandler = handler;
+        tab.addEventListener('click', handler);
     });
 
-    // По умолчанию показываем профиль
-    if (panels.profile) panels.profile.classList.remove('hidden');
+    // Сбрасываем все панели
+    Object.values(panels).forEach(p => p.classList.add('hidden'));
+
+    // Показываем только профиль
+    if (panels.profile) {
+        panels.profile.classList.remove('hidden');
+        // Активируем кнопку профиля
+        tabs.forEach(t => t.classList.remove('active'));
+        document.querySelector('.tab-btn[data-tab="profile"]')?.classList.add('active');
+    }
+
+    isTabsInitialized = true;
+}
+
+// --- СБРОС ЗАКЛАДОК ---
+function resetTabs() {
+    const tabs = document.querySelectorAll('.tab-btn:not(.tab-exit)');
+    const panels = {
+        profile: document.getElementById('panel-profile'),
+        inventory: document.getElementById('panel-inventory'),
+        map: document.getElementById('panel-map'),
+        settings: document.getElementById('panel-settings')
+    };
+
+    // Убираем активный класс у всех закладок
+    tabs.forEach(t => t.classList.remove('active'));
+
+    // Прячем все панели
+    Object.values(panels).forEach(p => p.classList.add('hidden'));
+
+    // Показываем только профиль
+    if (panels.profile) {
+        panels.profile.classList.remove('hidden');
+        document.querySelector('.tab-btn[data-tab="profile"]')?.classList.add('active');
+    }
+
+    isTabsInitialized = true;
 }
 
 // --- ФУНКЦИИ ---
@@ -169,7 +217,7 @@ registerBtn.onclick = () => {
 
 // --- ВЫХОД ЧЕРЕЗ ЗАКЛАДКУ ---
 document.getElementById('tabExit').addEventListener('click', function() {
-    // Показываем логотип обратно
+    // Показываем логотип
     mainLogo.classList.remove('hidden');
 
     // Скрываем закладки
@@ -177,8 +225,14 @@ document.getElementById('tabExit').addEventListener('click', function() {
 
     gameWorld.classList.add('hidden');
     loginSection.classList.remove('hidden');
+
+    // Сбрасываем состояние закладок
+    resetTabs();
+
+    // Сбрасываем текущую локацию
+    currentLocation = null;
+
     showStatus('', 'info');
-    tabLogin.click();
     addLog('👋 ВЫ ВЫШЛИ ИЗ ИГРЫ', 'system');
 });
 
@@ -211,6 +265,10 @@ loginBtn.onclick = () => {
     loginSection.classList.add('hidden');
     gameWorld.classList.remove('hidden');
 
+    // Сбрасываем локацию при входе
+    currentLocation = null;
+
+    // Инициализируем закладки (сбрасываем всё, открываем профиль)
     initTabs();
 
     document.getElementById('profileName').textContent = username;
@@ -218,12 +276,30 @@ loginBtn.onclick = () => {
     document.getElementById('profileGold').textContent = '50';
     document.getElementById('profileKills').textContent = '0';
 
+    // --- ОБРАБОТЧИКИ ДЛЯ ЛОКАЦИЙ (исправлено) ---
     document.querySelectorAll('.location').forEach(loc => {
-        loc.addEventListener('click', function() {
+        // Убираем старые обработчики
+        loc.removeEventListener('click', loc._clickHandler);
+
+        const handler = function() {
             const locName = this.textContent.trim();
+            const locId = this.dataset.loc;
+
+            // Проверяем, не в этой ли мы уже локации
+            if (currentLocation === locId) {
+                showStatus(`📍 ВЫ УЖЕ В ${locName}`, 'info');
+                addLog(`📍 ВЫ УЖЕ В ${locName}`, 'system');
+                return;
+            }
+
+            // Перемещаемся
+            currentLocation = locId;
             addLog(`📍 ПЕРЕМЕЩЕНИЕ В ${locName}`, 'player');
             showStatus(`📍 ВЫ В ${locName}`, 'info');
-        });
+        };
+
+        loc._clickHandler = handler;
+        loc.addEventListener('click', handler);
     });
 
     // Добавляем приветствие в логи
