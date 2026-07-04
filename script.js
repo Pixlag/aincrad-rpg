@@ -24,7 +24,7 @@ const tabRegister = document.getElementById('tabRegister');
 const logoutBtn = document.getElementById('logoutBtn');
 const statusEl = document.getElementById('status');
 
-// --- ГЛАЗИКИ ДЛЯ ПАРОЛЯ (СПРАЙТЫ) ---
+// --- ГЛАЗИКИ ---
 function initPasswordToggles() {
     document.querySelectorAll('.toggle-password').forEach(button => {
         button.removeEventListener('click', togglePassword);
@@ -38,11 +38,9 @@ function togglePassword(e) {
     const input = document.getElementById(targetId);
     if (!input) return;
 
-    // Переключаем тип поля
     const isPassword = input.type === 'password';
     input.type = isPassword ? 'text' : 'password';
 
-    // Меняем картинку глаз
     const icon = button.querySelector('.eye-icon');
     if (icon) {
         icon.src = isPassword ? 'assets/eye_open.png' : 'assets/eye_closed.png';
@@ -50,16 +48,42 @@ function togglePassword(e) {
     }
 }
 
-// Запускаем инициализацию при загрузке страницы
-document.addEventListener('DOMContentLoaded', function() {
-    initPasswordToggles();
-});
-
-// Также запускаем сразу, если DOM уже загружен
+document.addEventListener('DOMContentLoaded', initPasswordToggles);
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initPasswordToggles);
 } else {
     initPasswordToggles();
+}
+
+// --- ЗАКЛАДКИ ---
+function initTabs() {
+    const tabs = document.querySelectorAll('.tab-btn');
+    const panels = {
+        profile: document.getElementById('panel-profile'),
+        inventory: document.getElementById('panel-inventory'),
+        map: document.getElementById('panel-map'),
+        settings: document.getElementById('panel-settings')
+    };
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            // Убираем активный класс у всех закладок
+            tabs.forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+
+            // Прячем все панели
+            Object.values(panels).forEach(p => p.classList.add('hidden'));
+
+            // Показываем нужную панель
+            const tabName = this.dataset.tab;
+            if (panels[tabName]) {
+                panels[tabName].classList.remove('hidden');
+            }
+        });
+    });
+
+    // По умолчанию показываем карту
+    if (panels.map) panels.map.classList.remove('hidden');
 }
 
 // --- ФУНКЦИИ ---
@@ -68,7 +92,7 @@ function showStatus(msg, type = 'info') {
     statusEl.style.color = type === 'success' ? '#22c55e' : type === 'error' ? '#f87171' : '#888888';
 }
 
-// --- ПОЛЬЗОВАТЕЛИ (хранятся в браузере) ---
+// --- ПОЛЬЗОВАТЕЛИ ---
 function getUsers() {
     const data = localStorage.getItem('aincrad_users');
     return data ? JSON.parse(data) : {};
@@ -78,7 +102,7 @@ function saveUsers(users) {
     localStorage.setItem('aincrad_users', JSON.stringify(users));
 }
 
-// --- ВКЛАДКИ ---
+// --- ВКЛАДКИ АВТОРИЗАЦИИ ---
 tabLogin.onclick = () => {
     tabLogin.classList.add('active');
     tabRegister.classList.remove('active');
@@ -113,7 +137,6 @@ registerBtn.onclick = () => {
     }
 
     const users = getUsers();
-
     if (users[username]) {
         showStatus('⚠️ НИК УЖЕ ЗАНЯТ', 'error');
         return;
@@ -155,6 +178,24 @@ loginBtn.onclick = () => {
     // ВХОД В ИГРУ
     loginSection.classList.add('hidden');
     gameWorld.classList.remove('hidden');
+
+    // Инициализируем закладки
+    initTabs();
+
+    // Обновляем профиль
+    document.getElementById('profileName').textContent = username;
+    document.getElementById('profileLevel').textContent = '1';
+    document.getElementById('profileGold').textContent = '50';
+    document.getElementById('profileKills').textContent = '0';
+
+    // Обработчики для локаций на карте
+    document.querySelectorAll('.location').forEach(loc => {
+        loc.addEventListener('click', function() {
+            const locName = this.dataset.loc;
+            showStatus(`📍 ВЫ В ${this.textContent.trim()}`, 'info');
+        });
+    });
+
     showStatus(`✅ ДОБРО ПОЖАЛОВАТЬ, ${username}!`, 'success');
 };
 
