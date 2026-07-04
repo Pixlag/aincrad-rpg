@@ -4,158 +4,162 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>⚔️ Айнкрад</title>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+    <!-- НОВЫЙ ПИКСЕЛЬНЫЙ ШРИФТ (более красивый) -->
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <div class="game" id="app">
-        <!-- ФОН -->
-        <div class="game-bg"></div>
-
-        <!-- ЛОГОТИП -->
-        <img src="assets/logo_aincrad-8x.png" alt="Айнкрад" class="logo" />
-
-        <!-- АВТОРИЗАЦИЯ -->
-        <div id="authSection">
-            <div class="tab-switch">
-                <button class="active" id="tabLogin">
-                    <img src="assets/tab_button_active_log_in.png" alt="" />
-                    <span>ВХОД</span>
-                </button>
-                <button id="tabRegister">
-                    <img src="assets/tab_button_registr.png" alt="" />
-                    <span>РЕГИСТР.</span>
-                </button>
-            </div>
-
-            <!-- ФОРМА ВХОДА -->
-            <div class="login-form" id="loginForm">
-                <div class="input-wrapper">
-                    <img src="assets/icon_user.png" alt="" class="input-icon" />
-                    <input type="text" id="loginUsername" placeholder="НИК ИГРОКА" />
-                </div>
-                <div class="input-wrapper password-wrapper">
-                    <img src="assets/icon_lock.png" alt="" class="input-icon" />
-                    <input type="password" id="loginPassword" placeholder="ПАРОЛЬ" />
-                    <button type="button" class="toggle-password" data-target="loginPassword">
-                        <img src="assets/eye_closed.png" alt="Показать пароль" class="eye-icon" />
-                    </button>
-                </div>
-                <button id="loginBtn">
-                    <img src="assets/icon_key.png" alt="" class="btn-icon" />
-                    ВОЙТИ
-                </button>
-            </div>
-
-            <!-- ФОРМА РЕГИСТРАЦИИ -->
-            <div class="login-form hidden" id="registerForm">
-                <div class="input-wrapper">
-                    <img src="assets/icon_user.png" alt="" class="input-icon" />
-                    <input type="text" id="registerUsername" placeholder="ПРИДУМАЙТЕ НИК" />
-                </div>
-                <div class="input-wrapper password-wrapper">
-                    <img src="assets/icon_lock.png" alt="" class="input-icon" />
-                    <input type="password" id="registerPassword" placeholder="ПАРОЛЬ" />
-                    <button type="button" class="toggle-password" data-target="registerPassword">
-                        <img src="assets/eye_closed.png" alt="Показать пароль" class="eye-icon" />
-                    </button>
-                </div>
-                <div class="input-wrapper password-wrapper">
-                    <img src="assets/icon_lock.png" alt="" class="input-icon" />
-                    <input type="password" id="registerPasswordConfirm" placeholder="ПОВТОРИТЕ ПАРОЛЬ" />
-                    <button type="button" class="toggle-password" data-target="registerPasswordConfirm">
-                        <img src="assets/eye_closed.png" alt="Показать пароль" class="eye-icon" />
-                    </button>
-                </div>
-                <button id="registerBtn">
-                    <img src="assets/icon_pencil.png" alt="" class="btn-icon" />
-                    СОЗДАТЬ ГЕРОЯ
-                </button>
-            </div>
+    <div class="game-wrapper">
+        <!-- ЗАКЛАДКИ (СНАРУЖИ, СПРАВА) -->
+        <div class="tabs-container">
+            <button class="tab-btn active" data-tab="profile" title="Профиль">
+                <img src="assets/tab_profile.png" alt="Профиль" />
+            </button>
+            <button class="tab-btn" data-tab="inventory" title="Инвентарь">
+                <img src="assets/tab_inventory.png" alt="Инвентарь" />
+            </button>
+            <button class="tab-btn" data-tab="map" title="Карта">
+                <img src="assets/tab_map.png" alt="Карта" />
+            </button>
+            <button class="tab-btn" data-tab="settings" title="Настройки">
+                <img src="assets/tab_settings.png" alt="Настройки" />
+            </button>
         </div>
 
-        <!-- СТАТУС -->
-        <div class="status" id="status"></div>
+        <!-- ОСНОВНАЯ ИГРА -->
+        <div class="game" id="app">
+            <!-- ФОН -->
+            <div class="game-bg"></div>
 
-        <!-- ИГРОВОЙ МИР -->
-        <div id="gameWorld" class="hidden">
-            <!-- ЗАКЛАДКИ (справа сверху) -->
-            <div class="tabs-container">
-                <button class="tab-btn" data-tab="profile" title="Профиль">
-                    <img src="assets/tab_profile.png" alt="Профиль" />
-                </button>
-                <button class="tab-btn" data-tab="inventory" title="Инвентарь">
-                    <img src="assets/tab_inventory.png" alt="Инвентарь" />
-                </button>
-                <button class="tab-btn active" data-tab="map" title="Карта">
-                    <img src="assets/tab_map.png" alt="Карта" />
-                </button>
-                <button class="tab-btn" data-tab="settings" title="Настройки">
-                    <img src="assets/tab_settings.png" alt="Настройки" />
-                </button>
-            </div>
+            <!-- ЛОГОТИП -->
+            <img src="assets/logo_aincrad-8x.png" alt="Айнкрад" class="logo" />
 
-            <!-- КОНТЕНТ -->
-            <div class="tab-content" id="tabContent">
-                <!-- Профиль -->
-                <div class="tab-panel hidden" id="panel-profile">
-                    <h2>👤 ПРОФИЛЬ</h2>
-                    <div class="profile-stats">
-                        <p><span class="label">Имя:</span> <span id="profileName">—</span></p>
-                        <p><span class="label">Уровень:</span> <span id="profileLevel">1</span></p>
-                        <p><span class="label">Золото:</span> <span id="profileGold">50</span></p>
-                        <p><span class="label">Убийств:</span> <span id="profileKills">0</span></p>
-                    </div>
+            <!-- АВТОРИЗАЦИЯ -->
+            <div id="authSection">
+                <div class="tab-switch">
+                    <button class="active" id="tabLogin">
+                        <img src="assets/tab_button_active_log_in.png" alt="" />
+                        <span>ВХОД</span>
+                    </button>
+                    <button id="tabRegister">
+                        <img src="assets/tab_button_registr.png" alt="" />
+                        <span>РЕГИСТР.</span>
+                    </button>
                 </div>
 
-                <!-- Инвентарь -->
-                <div class="tab-panel hidden" id="panel-inventory">
-                    <h2>🎒 ИНВЕНТАРЬ</h2>
-                    <div class="inventory-grid">
-                        <div class="inv-slot empty">▢</div>
-                        <div class="inv-slot empty">▢</div>
-                        <div class="inv-slot empty">▢</div>
-                        <div class="inv-slot empty">▢</div>
-                        <div class="inv-slot empty">▢</div>
-                        <div class="inv-slot empty">▢</div>
-                        <div class="inv-slot empty">▢</div>
-                        <div class="inv-slot empty">▢</div>
+                <div class="login-form" id="loginForm">
+                    <div class="input-wrapper">
+                        <img src="assets/icon_user.png" alt="" class="input-icon" />
+                        <input type="text" id="loginUsername" placeholder="НИК ИГРОКА" />
                     </div>
+                    <div class="input-wrapper password-wrapper">
+                        <img src="assets/icon_lock.png" alt="" class="input-icon" />
+                        <input type="password" id="loginPassword" placeholder="ПАРОЛЬ" />
+                        <button type="button" class="toggle-password" data-target="loginPassword">
+                            <img src="assets/eye_closed.png" alt="Показать пароль" class="eye-icon" />
+                        </button>
+                    </div>
+                    <button id="loginBtn">
+                        <img src="assets/icon_key.png" alt="" class="btn-icon" />
+                        ВОЙТИ
+                    </button>
                 </div>
 
-                <!-- Карта -->
-                <div class="tab-panel" id="panel-map">
-                    <h2>🗺️ КАРТА МИРА</h2>
-                    <div class="map-locations">
-                        <div class="location" data-loc="capital">🏰 СТОЛИЦА</div>
-                        <div class="location" data-loc="elf_forest">🌲 ЭЛЬФИЙСКИЙ ЛЕС</div>
-                        <div class="location" data-loc="frozen_mountains">🏔️ ЛЕДЯНЫЕ ГОРЫ</div>
-                        <div class="location" data-loc="nezera_desert">🏜️ ПУСТЫНЯ НЕЗЕРА</div>
-                        <div class="location" data-loc="dragon_island">🌋 ОСТРОВ ДРАКОНОВ</div>
-                        <div class="location" data-loc="orc_village">🏠 ДЕРЕВНЯ ОРКОВ</div>
+                <div class="login-form hidden" id="registerForm">
+                    <div class="input-wrapper">
+                        <img src="assets/icon_user.png" alt="" class="input-icon" />
+                        <input type="text" id="registerUsername" placeholder="ПРИДУМАЙТЕ НИК" />
                     </div>
-                </div>
-
-                <!-- Настройки -->
-                <div class="tab-panel hidden" id="panel-settings">
-                    <h2>⚙️ НАСТРОЙКИ</h2>
-                    <div class="settings-item">
-                        <label for="soundToggle">🔊 ЗВУК</label>
-                        <input type="checkbox" id="soundToggle" checked />
+                    <div class="input-wrapper password-wrapper">
+                        <img src="assets/icon_lock.png" alt="" class="input-icon" />
+                        <input type="password" id="registerPassword" placeholder="ПАРОЛЬ" />
+                        <button type="button" class="toggle-password" data-target="registerPassword">
+                            <img src="assets/eye_closed.png" alt="Показать пароль" class="eye-icon" />
+                        </button>
                     </div>
-                    <div class="settings-item">
-                        <label for="musicToggle">🎵 МУЗЫКА</label>
-                        <input type="checkbox" id="musicToggle" checked />
+                    <div class="input-wrapper password-wrapper">
+                        <img src="assets/icon_lock.png" alt="" class="input-icon" />
+                        <input type="password" id="registerPasswordConfirm" placeholder="ПОВТОРИТЕ ПАРОЛЬ" />
+                        <button type="button" class="toggle-password" data-target="registerPasswordConfirm">
+                            <img src="assets/eye_closed.png" alt="Показать пароль" class="eye-icon" />
+                        </button>
                     </div>
-                    <div class="settings-item">
-                        <label for="npcToggle">🚫 ИГНОРИРОВАТЬ NPC</label>
-                        <input type="checkbox" id="npcToggle" />
-                    </div>
+                    <button id="registerBtn">
+                        <img src="assets/icon_pencil.png" alt="" class="btn-icon" />
+                        СОЗДАТЬ ГЕРОЯ
+                    </button>
                 </div>
             </div>
 
-            <!-- КНОПКА ВЫХОДА -->
-            <button id="logoutBtn">🚪 ВЫЙТИ</button>
+            <!-- СТАТУС -->
+            <div class="status" id="status"></div>
+
+            <!-- ИГРОВОЙ МИР -->
+            <div id="gameWorld" class="hidden">
+                <div class="tab-content" id="tabContent">
+                    <!-- Профиль -->
+                    <div class="tab-panel" id="panel-profile">
+                        <h2>👤 ПРОФИЛЬ</h2>
+                        <div class="profile-stats">
+                            <p><span class="label">Имя:</span> <span id="profileName">—</span></p>
+                            <p><span class="label">Уровень:</span> <span id="profileLevel">1</span></p>
+                            <p><span class="label">Золото:</span> <span id="profileGold">50</span></p>
+                            <p><span class="label">Убийств:</span> <span id="profileKills">0</span></p>
+                        </div>
+                    </div>
+
+                    <!-- Инвентарь -->
+                    <div class="tab-panel hidden" id="panel-inventory">
+                        <h2>🎒 ИНВЕНТАРЬ</h2>
+                        <div class="inventory-grid">
+                            <div class="inv-slot empty">▢</div>
+                            <div class="inv-slot empty">▢</div>
+                            <div class="inv-slot empty">▢</div>
+                            <div class="inv-slot empty">▢</div>
+                            <div class="inv-slot empty">▢</div>
+                            <div class="inv-slot empty">▢</div>
+                            <div class="inv-slot empty">▢</div>
+                            <div class="inv-slot empty">▢</div>
+                            <div class="inv-slot empty">▢</div>
+                            <div class="inv-slot empty">▢</div>
+                            <div class="inv-slot empty">▢</div>
+                            <div class="inv-slot empty">▢</div>
+                        </div>
+                    </div>
+
+                    <!-- Карта -->
+                    <div class="tab-panel hidden" id="panel-map">
+                        <h2>🗺️ КАРТА МИРА</h2>
+                        <div class="map-locations">
+                            <div class="location" data-loc="capital">🏰 СТОЛИЦА</div>
+                            <div class="location" data-loc="elf_forest">🌲 ЭЛЬФИЙСКИЙ ЛЕС</div>
+                            <div class="location" data-loc="frozen_mountains">🏔️ ЛЕДЯНЫЕ ГОРЫ</div>
+                            <div class="location" data-loc="nezera_desert">🏜️ ПУСТЫНЯ НЕЗЕРА</div>
+                            <div class="location" data-loc="dragon_island">🌋 ОСТРОВ ДРАКОНОВ</div>
+                            <div class="location" data-loc="orc_village">🏠 ДЕРЕВНЯ ОРКОВ</div>
+                        </div>
+                    </div>
+
+                    <!-- Настройки -->
+                    <div class="tab-panel hidden" id="panel-settings">
+                        <h2>⚙️ НАСТРОЙКИ</h2>
+                        <div class="settings-item">
+                            <label for="soundToggle">🔊 ЗВУК</label>
+                            <input type="checkbox" id="soundToggle" checked />
+                        </div>
+                        <div class="settings-item">
+                            <label for="musicToggle">🎵 МУЗЫКА</label>
+                            <input type="checkbox" id="musicToggle" checked />
+                        </div>
+                        <div class="settings-item">
+                            <label for="npcToggle">🚫 ИГНОРИРОВАТЬ NPC</label>
+                            <input type="checkbox" id="npcToggle" />
+                        </div>
+                    </div>
+                </div>
+
+                <button id="logoutBtn">🚪 ВЫЙТИ</button>
+            </div>
         </div>
     </div>
 
