@@ -14,7 +14,7 @@
             <!-- ФОН -->
             <div class="game-bg"></div>
 
-            <!-- ЛОГОТИП (скрывается после входа) -->
+            <!-- ЛОГОТИП -->
             <img src="assets/logo_aincrad-8x.png" alt="Айнкрад" class="logo" id="mainLogo" />
 
             <!-- АВТОРИЗАЦИЯ -->
@@ -79,6 +79,7 @@
 
             <!-- ИГРОВОЙ МИР -->
             <div id="gameWorld" class="hidden">
+                <!-- ОКНО КОНТЕНТА (статичное, одинаковое для всех) -->
                 <div class="tab-content" id="tabContent">
                     <!-- Профиль -->
                     <div class="tab-panel" id="panel-profile">
@@ -141,7 +142,13 @@
                     </div>
                 </div>
 
-                <button id="logoutBtn">🚪 ВЫЙТИ</button>
+                <!-- ОКНО ЛОГОВ (внизу, с прокруткой) -->
+                <div class="log-container">
+                    <div class="log-title">📜 ЖУРНАЛ СОБЫТИЙ</div>
+                    <div class="log-content" id="logContent">
+                        <div class="log-entry system">🌟 ДОБРО ПОЖАЛОВАТЬ В АЙНКРАД!</div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -158,6 +165,10 @@
             </button>
             <button class="tab-btn" data-tab="settings" title="Настройки">
                 <img src="assets/tab_settings.png" alt="Настройки" />
+            </button>
+            <!-- КНОПКА ВЫХОДА (В САМОМ НИЗУ) -->
+            <button class="tab-btn tab-exit" id="tabExit" title="Выйти">
+                <img src="assets/tab_exit.png" alt="Выйти" />
             </button>
         </div>
     </div>
