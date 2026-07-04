@@ -5,13 +5,59 @@
 }
 
 body {
-    font-family: 'Press Start 2P', monospace;
+    font-family: 'VT323', monospace;
     background: #0a0a0a;
     color: #d4c5a0;
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 18px;
+}
+
+/* === ОБЁРТКА ДЛЯ ИГРЫ + ЗАКЛАДОК === */
+.game-wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+    position: relative;
+}
+
+/* === ЗАКЛАДКИ (СНАРУЖИ, СПРАВА) === */
+.tabs-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-top: 80px;
+    margin-left: -8px;
+    z-index: 10;
+}
+
+.tab-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    image-rendering: pixelated;
+    transition: all 0.15s;
+    position: relative;
+    width: 40px;
+    height: 40px;
+}
+
+.tab-btn img {
+    display: block;
+    width: 40px;
+    height: 40px;
+    image-rendering: pixelated;
+}
+
+.tab-btn.active img {
+    filter: brightness(1.3) drop-shadow(0 0 10px rgba(240, 192, 96, 0.5));
+}
+
+.tab-btn:hover img {
+    filter: brightness(1.2);
 }
 
 /* === ОСНОВНОЙ КОНТЕЙНЕР === */
@@ -71,8 +117,8 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-family: 'Press Start 2P', monospace;
-    font-size: 10px;
+    font-family: 'VT323', monospace;
+    font-size: 14px;
     font-weight: 400;
     color: #d4c5a0;
     letter-spacing: 1px;
@@ -118,8 +164,8 @@ body {
     background-size: 100% 100%;
     border: none;
     color: #d4c5a0;
-    font-family: 'Press Start 2P', monospace;
-    font-size: 10px;
+    font-family: 'VT323', monospace;
+    font-size: 14px;
     outline: none;
     image-rendering: pixelated;
     height: 45px;
@@ -167,8 +213,8 @@ body {
     background: none;
     border: none;
     cursor: pointer;
-    font-family: 'Press Start 2P', monospace;
-    font-size: 11px;
+    font-family: 'VT323', monospace;
+    font-size: 16px;
     color: #d4c5a0;
     image-rendering: pixelated;
     padding: 0 10px;
@@ -215,7 +261,7 @@ body {
     padding: 8px 10px;
     background: transparent;
     border: none;
-    font-size: 9px;
+    font-size: 14px;
     text-align: center;
     min-height: 30px;
     display: flex;
@@ -223,6 +269,7 @@ body {
     justify-content: center;
     color: #888888;
     image-rendering: pixelated;
+    font-family: 'VT323', monospace;
 }
 
 .hidden {
@@ -230,7 +277,7 @@ body {
 }
 
 /* ============================================================
-   🎮 ИГРОВОЙ МИР (С ЗАКЛАДКАМИ)
+   🎮 ИГРОВОЙ МИР
    ============================================================ */
 
 #gameWorld {
@@ -243,47 +290,8 @@ body {
     position: relative;
 }
 
-/* === ЗАКЛАДКИ (справа сверху) === */
-.tabs-container {
-    position: absolute;
-    top: -2px;
-    right: -2px;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    z-index: 10;
-}
-
-.tab-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    image-rendering: pixelated;
-    transition: all 0.15s;
-    position: relative;
-}
-
-.tab-btn img {
-    display: block;
-    width: 40px;
-    height: 60px;
-    image-rendering: pixelated;
-}
-
-/* Активная закладка (подсвечена) */
-.tab-btn.active img {
-    filter: brightness(1.3) drop-shadow(0 0 8px rgba(240, 192, 96, 0.4));
-}
-
-/* При наведении */
-.tab-btn:hover img {
-    filter: brightness(1.2);
-}
-
 /* === КОНТЕНТ ВКЛАДОК === */
 .tab-content {
-    margin-top: 12px;
     min-height: 200px;
 }
 
@@ -294,8 +302,9 @@ body {
 
 .tab-panel h2 {
     color: #f0c060;
-    font-size: 14px;
+    font-size: 20px;
     margin-bottom: 12px;
+    font-family: 'VT323', monospace;
 }
 
 .tab-panel.hidden {
@@ -304,13 +313,14 @@ body {
 
 /* === ПРОФИЛЬ === */
 .profile-stats p {
-    font-size: 10px;
+    font-size: 16px;
     padding: 4px 0;
     border-bottom: 1px solid #2a2a2a;
     display: flex;
     justify-content: space-between;
     max-width: 280px;
     margin: 0 auto;
+    font-family: 'VT323', monospace;
 }
 
 .profile-stats .label {
@@ -338,7 +348,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 18px;
+    font-size: 20px;
     color: #5a5a5a;
     image-rendering: pixelated;
 }
@@ -361,12 +371,13 @@ body {
     background: rgba(0, 0, 0, 0.4);
     border: 2px solid #3a3a3a;
     border-radius: 4px;
-    padding: 6px 10px;
-    font-size: 9px;
+    padding: 6px 12px;
+    font-size: 14px;
     color: #94a3b8;
     cursor: pointer;
     transition: all 0.2s;
     image-rendering: pixelated;
+    font-family: 'VT323', monospace;
 }
 
 .location:hover {
@@ -384,7 +395,8 @@ body {
     border-bottom: 1px solid #2a2a2a;
     max-width: 280px;
     margin: 0 auto;
-    font-size: 10px;
+    font-size: 16px;
+    font-family: 'VT323', monospace;
 }
 
 .settings-item label {
@@ -407,8 +419,8 @@ body {
     background: transparent;
     color: #888888;
     cursor: pointer;
-    font-family: 'Press Start 2P', monospace;
-    font-size: 10px;
+    font-family: 'VT323', monospace;
+    font-size: 16px;
     border-radius: 4px;
     transition: all 0.2s;
 }
@@ -420,6 +432,29 @@ body {
 
 /* === АДАПТИВ === */
 @media (max-width: 500px) {
+    .game-wrapper {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .tabs-container {
+        flex-direction: row;
+        padding-top: 0;
+        margin-left: 0;
+        margin-bottom: 4px;
+        gap: 2px;
+    }
+
+    .tab-btn {
+        width: 32px;
+        height: 32px;
+    }
+
+    .tab-btn img {
+        width: 32px;
+        height: 32px;
+    }
+
     .game {
         width: 100%;
         min-height: 100vh;
@@ -427,71 +462,87 @@ body {
         border-radius: 0;
         padding: 16px 14px;
     }
+
     .logo {
         width: 260px;
     }
+
     .tab-switch button img {
         width: 100px;
         height: 34px;
     }
+
     .tab-switch button span {
-        font-size: 8px;
+        font-size: 11px;
     }
+
     #loginBtn,
     #registerBtn {
         width: 160px;
         height: 42px;
-        font-size: 9px;
+        font-size: 13px;
         gap: 6px;
     }
+
     .input-wrapper input {
-        font-size: 8px;
+        font-size: 11px;
         height: 38px;
         padding: 8px 38px 8px 34px;
     }
+
     .input-wrapper .input-icon {
         width: 14px;
         height: 14px;
         left: 8px;
     }
+
     .password-wrapper .toggle-password {
         right: 8px;
     }
+
     .password-wrapper .toggle-password .eye-icon {
         width: 14px;
         height: 14px;
     }
+
     .btn-icon {
         width: 14px;
         height: 14px;
     }
+
     .status {
-        font-size: 8px;
+        font-size: 12px;
         min-height: 25px;
         padding: 6px 8px;
     }
-    .tab-btn img {
-        width: 32px !important;
-        height: 48px !important;
-    }
+
     .tab-panel h2 {
-        font-size: 12px;
+        font-size: 16px;
     }
+
     .profile-stats p {
-        font-size: 8px;
+        font-size: 13px;
     }
+
     .location {
-        font-size: 7px;
+        font-size: 11px;
         padding: 4px 8px;
     }
+
     .settings-item {
-        font-size: 8px;
+        font-size: 13px;
     }
+
     .inventory-grid {
         max-width: 220px;
         gap: 4px;
     }
+
     .inv-slot {
-        font-size: 14px;
+        font-size: 16px;
+    }
+
+    #logoutBtn {
+        font-size: 13px;
     }
 }
