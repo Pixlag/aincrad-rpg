@@ -5,14 +5,13 @@
 }
 
 body {
-    font-family: 'VT323', monospace;
+    font-family: 'Press Start 2P', monospace;
     background: #0a0a0a;
     color: #d4c5a0;
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 18px;
 }
 
 /* === ОБЁРТКА ДЛЯ ИГРЫ + ЗАКЛАДОК === */
@@ -23,7 +22,7 @@ body {
     position: relative;
 }
 
-/* === ЗАКЛАДКИ (СНАРУЖИ, СПРАВА) === */
+/* === ЗАКЛАДКИ (СПРАВА, СНАРУЖИ) === */
 .tabs-container {
     display: flex;
     flex-direction: column;
@@ -31,6 +30,12 @@ body {
     padding-top: 80px;
     margin-left: -8px;
     z-index: 10;
+    /* СКРЫТЫ ПО УМОЛЧАНИЮ */
+    display: none;
+}
+
+.tabs-container.visible {
+    display: flex;
 }
 
 .tab-btn {
@@ -86,6 +91,11 @@ body {
     width: 400px;
     height: auto;
     image-rendering: pixelated;
+    transition: opacity 0.3s;
+}
+
+.logo.hidden {
+    display: none;
 }
 
 /* === АВТОРИЗАЦИЯ === */
@@ -117,8 +127,8 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-family: 'VT323', monospace;
-    font-size: 14px;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 10px;
     font-weight: 400;
     color: #d4c5a0;
     letter-spacing: 1px;
@@ -164,8 +174,8 @@ body {
     background-size: 100% 100%;
     border: none;
     color: #d4c5a0;
-    font-family: 'VT323', monospace;
-    font-size: 14px;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 10px;
     outline: none;
     image-rendering: pixelated;
     height: 45px;
@@ -213,8 +223,8 @@ body {
     background: none;
     border: none;
     cursor: pointer;
-    font-family: 'VT323', monospace;
-    font-size: 16px;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 11px;
     color: #d4c5a0;
     image-rendering: pixelated;
     padding: 0 10px;
@@ -261,7 +271,7 @@ body {
     padding: 8px 10px;
     background: transparent;
     border: none;
-    font-size: 14px;
+    font-size: 9px;
     text-align: center;
     min-height: 30px;
     display: flex;
@@ -269,7 +279,6 @@ body {
     justify-content: center;
     color: #888888;
     image-rendering: pixelated;
-    font-family: 'VT323', monospace;
 }
 
 .hidden {
@@ -302,9 +311,9 @@ body {
 
 .tab-panel h2 {
     color: #f0c060;
-    font-size: 20px;
+    font-size: 14px;
     margin-bottom: 12px;
-    font-family: 'VT323', monospace;
+    font-family: 'Press Start 2P', monospace;
 }
 
 .tab-panel.hidden {
@@ -313,14 +322,14 @@ body {
 
 /* === ПРОФИЛЬ === */
 .profile-stats p {
-    font-size: 16px;
+    font-size: 10px;
     padding: 4px 0;
     border-bottom: 1px solid #2a2a2a;
     display: flex;
     justify-content: space-between;
     max-width: 280px;
     margin: 0 auto;
-    font-family: 'VT323', monospace;
+    font-family: 'Press Start 2P', monospace;
 }
 
 .profile-stats .label {
@@ -348,7 +357,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 20px;
+    font-size: 18px;
     color: #5a5a5a;
     image-rendering: pixelated;
 }
@@ -371,13 +380,13 @@ body {
     background: rgba(0, 0, 0, 0.4);
     border: 2px solid #3a3a3a;
     border-radius: 4px;
-    padding: 6px 12px;
-    font-size: 14px;
+    padding: 6px 10px;
+    font-size: 9px;
     color: #94a3b8;
     cursor: pointer;
     transition: all 0.2s;
     image-rendering: pixelated;
-    font-family: 'VT323', monospace;
+    font-family: 'Press Start 2P', monospace;
 }
 
 .location:hover {
@@ -395,8 +404,8 @@ body {
     border-bottom: 1px solid #2a2a2a;
     max-width: 280px;
     margin: 0 auto;
-    font-size: 16px;
-    font-family: 'VT323', monospace;
+    font-size: 10px;
+    font-family: 'Press Start 2P', monospace;
 }
 
 .settings-item label {
@@ -419,8 +428,8 @@ body {
     background: transparent;
     color: #888888;
     cursor: pointer;
-    font-family: 'VT323', monospace;
-    font-size: 16px;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 10px;
     border-radius: 4px;
     transition: all 0.2s;
 }
@@ -473,19 +482,19 @@ body {
     }
 
     .tab-switch button span {
-        font-size: 11px;
+        font-size: 8px;
     }
 
     #loginBtn,
     #registerBtn {
         width: 160px;
         height: 42px;
-        font-size: 13px;
+        font-size: 9px;
         gap: 6px;
     }
 
     .input-wrapper input {
-        font-size: 11px;
+        font-size: 8px;
         height: 38px;
         padding: 8px 38px 8px 34px;
     }
@@ -511,26 +520,26 @@ body {
     }
 
     .status {
-        font-size: 12px;
+        font-size: 8px;
         min-height: 25px;
         padding: 6px 8px;
     }
 
     .tab-panel h2 {
-        font-size: 16px;
+        font-size: 12px;
     }
 
     .profile-stats p {
-        font-size: 13px;
+        font-size: 8px;
     }
 
     .location {
-        font-size: 11px;
+        font-size: 7px;
         padding: 4px 8px;
     }
 
     .settings-item {
-        font-size: 13px;
+        font-size: 8px;
     }
 
     .inventory-grid {
@@ -539,10 +548,10 @@ body {
     }
 
     .inv-slot {
-        font-size: 16px;
+        font-size: 14px;
     }
 
     #logoutBtn {
-        font-size: 13px;
+        font-size: 8px;
     }
 }
