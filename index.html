@@ -37,7 +37,7 @@
                 <div class="input-wrapper password-wrapper">
                     <img src="assets/icon_lock.png" alt="" class="input-icon" />
                     <input type="password" id="loginPassword" placeholder="ПАРОЛЬ" />
-                    <button type="button" class="toggle-password" data-target="loginPassword" aria-label="Показать пароль">
+                    <button type="button" class="toggle-password" data-target="loginPassword">
                         <img src="assets/eye_closed.png" alt="Показать пароль" class="eye-icon" />
                     </button>
                 </div>
@@ -56,14 +56,14 @@
                 <div class="input-wrapper password-wrapper">
                     <img src="assets/icon_lock.png" alt="" class="input-icon" />
                     <input type="password" id="registerPassword" placeholder="ПАРОЛЬ" />
-                    <button type="button" class="toggle-password" data-target="registerPassword" aria-label="Показать пароль">
+                    <button type="button" class="toggle-password" data-target="registerPassword">
                         <img src="assets/eye_closed.png" alt="Показать пароль" class="eye-icon" />
                     </button>
                 </div>
                 <div class="input-wrapper password-wrapper">
                     <img src="assets/icon_lock.png" alt="" class="input-icon" />
                     <input type="password" id="registerPasswordConfirm" placeholder="ПОВТОРИТЕ ПАРОЛЬ" />
-                    <button type="button" class="toggle-password" data-target="registerPasswordConfirm" aria-label="Показать пароль">
+                    <button type="button" class="toggle-password" data-target="registerPasswordConfirm">
                         <img src="assets/eye_closed.png" alt="Показать пароль" class="eye-icon" />
                     </button>
                 </div>
@@ -79,8 +79,82 @@
 
         <!-- ИГРОВОЙ МИР -->
         <div id="gameWorld" class="hidden">
-            <h2>🗺️ КАРТА МИРА</h2>
-            <p>Ваша карта будет здесь!</p>
+            <!-- ЗАКЛАДКИ (справа сверху) -->
+            <div class="tabs-container">
+                <button class="tab-btn" data-tab="profile" title="Профиль">
+                    <img src="assets/tab_profile.png" alt="Профиль" />
+                </button>
+                <button class="tab-btn" data-tab="inventory" title="Инвентарь">
+                    <img src="assets/tab_inventory.png" alt="Инвентарь" />
+                </button>
+                <button class="tab-btn active" data-tab="map" title="Карта">
+                    <img src="assets/tab_map.png" alt="Карта" />
+                </button>
+                <button class="tab-btn" data-tab="settings" title="Настройки">
+                    <img src="assets/tab_settings.png" alt="Настройки" />
+                </button>
+            </div>
+
+            <!-- КОНТЕНТ -->
+            <div class="tab-content" id="tabContent">
+                <!-- Профиль -->
+                <div class="tab-panel hidden" id="panel-profile">
+                    <h2>👤 ПРОФИЛЬ</h2>
+                    <div class="profile-stats">
+                        <p><span class="label">Имя:</span> <span id="profileName">—</span></p>
+                        <p><span class="label">Уровень:</span> <span id="profileLevel">1</span></p>
+                        <p><span class="label">Золото:</span> <span id="profileGold">50</span></p>
+                        <p><span class="label">Убийств:</span> <span id="profileKills">0</span></p>
+                    </div>
+                </div>
+
+                <!-- Инвентарь -->
+                <div class="tab-panel hidden" id="panel-inventory">
+                    <h2>🎒 ИНВЕНТАРЬ</h2>
+                    <div class="inventory-grid">
+                        <div class="inv-slot empty">▢</div>
+                        <div class="inv-slot empty">▢</div>
+                        <div class="inv-slot empty">▢</div>
+                        <div class="inv-slot empty">▢</div>
+                        <div class="inv-slot empty">▢</div>
+                        <div class="inv-slot empty">▢</div>
+                        <div class="inv-slot empty">▢</div>
+                        <div class="inv-slot empty">▢</div>
+                    </div>
+                </div>
+
+                <!-- Карта -->
+                <div class="tab-panel" id="panel-map">
+                    <h2>🗺️ КАРТА МИРА</h2>
+                    <div class="map-locations">
+                        <div class="location" data-loc="capital">🏰 СТОЛИЦА</div>
+                        <div class="location" data-loc="elf_forest">🌲 ЭЛЬФИЙСКИЙ ЛЕС</div>
+                        <div class="location" data-loc="frozen_mountains">🏔️ ЛЕДЯНЫЕ ГОРЫ</div>
+                        <div class="location" data-loc="nezera_desert">🏜️ ПУСТЫНЯ НЕЗЕРА</div>
+                        <div class="location" data-loc="dragon_island">🌋 ОСТРОВ ДРАКОНОВ</div>
+                        <div class="location" data-loc="orc_village">🏠 ДЕРЕВНЯ ОРКОВ</div>
+                    </div>
+                </div>
+
+                <!-- Настройки -->
+                <div class="tab-panel hidden" id="panel-settings">
+                    <h2>⚙️ НАСТРОЙКИ</h2>
+                    <div class="settings-item">
+                        <label for="soundToggle">🔊 ЗВУК</label>
+                        <input type="checkbox" id="soundToggle" checked />
+                    </div>
+                    <div class="settings-item">
+                        <label for="musicToggle">🎵 МУЗЫКА</label>
+                        <input type="checkbox" id="musicToggle" checked />
+                    </div>
+                    <div class="settings-item">
+                        <label for="npcToggle">🚫 ИГНОРИРОВАТЬ NPC</label>
+                        <input type="checkbox" id="npcToggle" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- КНОПКА ВЫХОДА -->
             <button id="logoutBtn">🚪 ВЫЙТИ</button>
         </div>
     </div>
