@@ -95,19 +95,20 @@
                     <!-- Инвентарь -->
                     <div class="tab-panel hidden" id="panel-inventory">
                         <h2>🎒 ИНВЕНТАРЬ</h2>
-                        <div class="inventory-grid">
-                            <div class="inv-slot empty">▢</div>
-                            <div class="inv-slot empty">▢</div>
-                            <div class="inv-slot empty">▢</div>
-                            <div class="inv-slot empty">▢</div>
-                            <div class="inv-slot empty">▢</div>
-                            <div class="inv-slot empty">▢</div>
-                            <div class="inv-slot empty">▢</div>
-                            <div class="inv-slot empty">▢</div>
-                            <div class="inv-slot empty">▢</div>
-                            <div class="inv-slot empty">▢</div>
-                            <div class="inv-slot empty">▢</div>
-                            <div class="inv-slot empty">▢</div>
+                        <div class="inventory-grid" id="inventoryGrid">
+                            <!-- 5×5 = 25 ячеек, заполняется через JS -->
+                        </div>
+                        <!-- Кнопки действий -->
+                        <div class="inventory-actions">
+                            <button class="inv-action" id="btnEquip" disabled>
+                                <img src="assets/button_equip.png" alt="Экипировать" />
+                            </button>
+                            <button class="inv-action" id="btnUse" disabled>
+                                <img src="assets/button_use.png" alt="Использовать" />
+                            </button>
+                            <button class="inv-action" id="btnDelete" disabled>
+                                <img src="assets/button_delete.png" alt="Удалить" />
+                            </button>
                         </div>
                     </div>
 
@@ -155,19 +156,19 @@
         <!-- ЗАКЛАДКИ (СПРАВА, СНАРУЖИ) -->
         <div class="tabs-container" id="tabsContainer">
             <button class="tab-btn active" data-tab="profile" title="Профиль">
-                <img src="assets/tab_profile.png" alt="Профиль" />
+                <img src="assets/bookmark_profile.png" alt="Профиль" />
             </button>
             <button class="tab-btn" data-tab="inventory" title="Инвентарь">
-                <img src="assets/tab_inventory.png" alt="Инвентарь" />
+                <img src="assets/bookmark_inventory.png" alt="Инвентарь" />
             </button>
             <button class="tab-btn" data-tab="map" title="Карта">
-                <img src="assets/tab_map.png" alt="Карта" />
+                <img src="assets/bookmark_map.png" alt="Карта" />
             </button>
             <button class="tab-btn" data-tab="settings" title="Настройки">
-                <img src="assets/tab_settings.png" alt="Настройки" />
+                <img src="assets/bookmark_settings.png" alt="Настройки" />
             </button>
             <button class="tab-btn tab-exit" id="tabExit" title="Выйти">
-                <img src="assets/tab_exit.png" alt="Выйти" />
+                <img src="assets/bookmark_leave.png" alt="Выйти" />
             </button>
         </div>
     </div>
