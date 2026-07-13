@@ -22,7 +22,7 @@ body {
     position: relative;
 }
 
-/* === ЗАКЛАДКИ (СПРАВА, 16×16) === */
+/* === ЗАКЛАДКИ (16×16) === */
 .tabs-container {
     display: none;
     flex-direction: column;
@@ -375,7 +375,7 @@ body {
     color: #d4c5a0;
 }
 
-/* === ИНВЕНТАРЬ (5×5, 16×16 предметы, 18×18 ячейки) === */
+/* === ИНВЕНТАРЬ (5×5, 16×16 предметы) === */
 .inventory-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
