@@ -95,7 +95,9 @@
                     <!-- Инвентарь -->
                     <div class="tab-panel hidden" id="panel-inventory">
                         <h2>🎒 ИНВЕНТАРЬ</h2>
-                        <div class="inventory-grid" id="inventoryGrid"></div>
+                        <div class="inventory-grid" id="inventoryGrid">
+                            <!-- 5×5 = 25 ячеек, заполняется через JS -->
+                        </div>
                         <!-- Кнопки действий -->
                         <div class="inventory-actions">
                             <button class="inv-action" id="btnEquip" disabled>
@@ -137,6 +139,19 @@
                         <div class="settings-item">
                             <label for="npcToggle">🚫 ИГНОРИРОВАТЬ NPC</label>
                             <input type="checkbox" id="npcToggle" />
+                        </div>
+                        <div class="settings-item">
+                            <label for="languageSelect">🌐 ЯЗЫК</label>
+                            <select id="languageSelect">
+                                <option value="ru">Русский</option>
+                                <option value="en">English</option>
+                                <option value="de">Deutsch</option>
+                                <option value="fr">Français</option>
+                                <option value="es">Español</option>
+                                <option value="zh">中文</option>
+                                <option value="ja">日本語</option>
+                                <option value="ko">한국어</option>
+                            </select>
                         </div>
                     </div>
                 </div>
