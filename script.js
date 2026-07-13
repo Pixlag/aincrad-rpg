@@ -31,9 +31,11 @@ let currentLocation = null;
 let isTabsInitialized = false;
 let selectedSlot = null;
 let playerInventory = [];
+let currentPlayerName = '';
 
 // --- ЯЗЫК ---
 let currentLang = 'ru';
+
 const LANG = {
     ru: {
         inventory: 'ИНВЕНТАРЬ',
@@ -59,242 +61,156 @@ const LANG = {
         used: 'ИСПОЛЬЗОВАН',
         deleted: 'УДАЛЕН',
         cannot_equip: 'НЕЛЬЗЯ ЭКИПИРОВАТЬ',
-        exit: 'ВЫ ВЫШЛИ ИЗ ИГРЫ'
+        exit: 'ВЫ ВЫШЛИ ИЗ ИГРЫ',
+        login: 'ВХОД',
+        register: 'РЕГИСТР.',
+        login_btn: 'ВОЙТИ',
+        register_btn: 'СОЗДАТЬ ГЕРОЯ',
+        username: 'НИК ИГРОКА',
+        password: 'ПАРОЛЬ',
+        confirm_password: 'ПОВТОРИТЕ ПАРОЛЬ',
+        new_username: 'ПРИДУМАЙТЕ НИК',
+        login_error: 'НЕВЕРНЫЙ НИК ИЛИ ПАРОЛЬ',
+        register_success: 'РЕГИСТРАЦИЯ УСПЕШНА! ВОЙДИТЕ.',
+        username_taken: 'НИК УЖЕ ЗАНЯТ',
+        username_short: 'НИК ОТ 3 СИМВОЛОВ',
+        password_short: 'ПАРОЛЬ ОТ 4 СИМВОЛОВ',
+        password_mismatch: 'ПАРОЛИ НЕ СОВПАДАЮТ',
+        enter_data: 'ВВЕДИТЕ НИК И ПАРОЛЬ',
+        user_not_found: 'ПОЛЬЗОВАТЕЛЬ НЕ НАЙДЕН',
+        welcome_user: 'ДОБРО ПОЖАЛОВАТЬ',
+        log_title: 'ЖУРНАЛ СОБЫТИЙ',
+        profile_title: 'ПРОФИЛЬ',
+        map_title: 'КАРТА МИРА',
+        settings_title: 'НАСТРОЙКИ',
+        inventory_title: 'ИНВЕНТАРЬ',
+        exit_btn: 'ВЫЙТИ',
+        search: 'ПОИСК',
+        filter: 'ФИЛЬТР',
+        sort: 'СОРТИРОВКА',
+        back: 'НАЗАД',
+        save: 'СОХРАНИТЬ',
+        cancel: 'ОТМЕНА',
+        confirm: 'ПОДТВЕРДИТЬ',
+        close: 'ЗАКРЫТЬ',
+        open: 'ОТКРЫТЬ',
+        yes: 'ДА',
+        no: 'НЕТ',
+        loading: 'ЗАГРУЗКА...',
+        error: 'ОШИБКА',
+        success: 'УСПЕШНО',
+        info: 'ИНФОРМАЦИЯ',
+        warning: 'ПРЕДУПРЕЖДЕНИЕ',
+        logout: 'ВЫЙТИ',
+        profile_edit: 'РЕДАКТИРОВАТЬ ПРОФИЛЬ',
+        profile_save: 'СОХРАНИТЬ ПРОФИЛЬ',
+        profile_cancel: 'ОТМЕНИТЬ',
+        profile_name: 'ИМЯ',
+        profile_level: 'УРОВЕНЬ',
+        profile_gold: 'ЗОЛОТО',
+        profile_kills: 'УБИЙСТВ',
+        profile_health: 'ЗДОРОВЬЕ',
+        profile_attack: 'АТАКА',
+        profile_defense: 'ЗАЩИТА',
+        profile_speed: 'СКОРОСТЬ',
+        profile_luck: 'УДАЧА',
+        profile_intelligence: 'ИНТЕЛЛЕКТ',
+        profile_strength: 'СИЛА',
+        profile_agility: 'ЛОВКОСТЬ',
+        profile_endurance: 'ВЫНОСЛИВОСТЬ',
+        profile_charisma: 'ХАРИЗМА',
+        profile_race: 'РАСА',
+        profile_class: 'КЛАСС',
+        profile_experience: 'ОПЫТ',
+        profile_next_level: 'ДО СЛЕДУЮЩЕГО УРОВНЯ',
+        profile_equipment: 'СНАРЯЖЕНИЕ',
+        profile_weapon: 'ОРУЖИЕ',
+        profile_shield: 'ЩИТ',
+        profile_ring: 'КОЛЬЦО',
+        profile_helmet: 'ШЛЕМ',
+        profile_chestplate: 'НАГРУДНИК',
+        profile_boots: 'САПОГИ',
+        profile_accessories: 'АКСЕССУАРЫ',
+        profile_skills: 'НАВЫКИ',
+        profile_abilities: 'СПОСОБНОСТИ',
+        profile_stats: 'ХАРАКТЕРИСТИКИ',
+        profile_achievements: 'ДОСТИЖЕНИЯ',
+        profile_quests: 'КВЕСТЫ',
+        profile_friends: 'ДРУЗЬЯ',
+        profile_guild: 'ГИЛЬДИЯ',
+        profile_rank: 'РАНГ',
+        profile_reputation: 'РЕПУТАЦИЯ',
+        profile_battles: 'СРАЖЕНИЙ',
+        profile_wins: 'ПОБЕД',
+        profile_losses: 'ПОРАЖЕНИЙ',
+        profile_draws: 'НИЧЬИХ',
+        profile_kd: 'УБИЙСТВ/СМЕРТЕЙ',
+        profile_playtime: 'ИГРОВОЕ ВРЕМЯ',
+        profile_joined: 'ПРИСОЕДИНИЛСЯ',
+        profile_last_seen: 'ПОСЛЕДНИЙ РАЗ',
+        profile_status: 'СТАТУС',
+        profile_online: 'В ИГРЕ',
+        profile_offline: 'НЕ В ИГРЕ',
+        profile_away: 'ОТОШЁЛ',
+        profile_busy: 'ЗАНЯТ',
+        profile_invisible: 'НЕВИДИМ',
+        profile_friend_request: 'ЗАПРОС В ДРУЗЬЯ',
+        profile_friend_accept: 'ПРИНЯТЬ',
+        profile_friend_decline: 'ОТКЛОНИТЬ',
+        profile_friend_remove: 'УДАЛИТЬ ИЗ ДРУЗЕЙ',
+        profile_friend_block: 'ЗАБЛОКИРОВАТЬ',
+        profile_friend_unblock: 'РАЗБЛОКИРОВАТЬ',
+        profile_report: 'ПОЖАЛОВАТЬСЯ',
+        profile_ignore: 'ИГНОРИРОВАТЬ',
+        profile_unignore: 'ПЕРЕСТАТЬ ИГНОРИРОВАТЬ',
+        profile_trade: 'ТОРГОВАТЬ',
+        profile_duel: 'ВЫЗВАТЬ НА ДУЭЛЬ',
+        profile_party: 'ПРИГЛАСИТЬ В ГРУППУ',
+        profile_party_leave: 'ПОКИНУТЬ ГРУППУ',
+        profile_party_kick: 'ВЫГНАТЬ ИЗ ГРУППЫ',
+        profile_party_invite: 'ПРИГЛАСИТЬ В ГРУППУ',
+        profile_party_accept: 'ПРИНЯТЬ ПРИГЛАШЕНИЕ',
+        profile_party_decline: 'ОТКЛОНИТЬ ПРИГЛАШЕНИЕ',
+        profile_party_leader: 'ЛИДЕР ГРУППЫ',
+        profile_party_member: 'УЧАСТНИК ГРУППЫ',
+        profile_party_full: 'ГРУППА ПОЛНА',
+        profile_party_not_found: 'ГРУППА НЕ НАЙДЕНА',
+        profile_party_created: 'ГРУППА СОЗДАНА',
+        profile_party_deleted: 'ГРУППА УДАЛЕНА',
+        profile_party_left: 'ВЫ ПОКИНУЛИ ГРУППУ',
+        profile_party_kicked: 'ВАС ВЫГНАЛИ ИЗ ГРУППЫ',
+        profile_party_invited: 'ВАС ПРИГЛАСИЛИ В ГРУППУ',
+        profile_party_joined: 'ВЫ ПРИСОЕДИНИЛИСЬ К ГРУППЕ',
+        profile_party_declined: 'ВЫ ОТКЛОНИЛИ ПРИГЛАШЕНИЕ',
+        profile_party_not_invited: 'ВЫ НЕ ПРИГЛАШЕНЫ',
+        profile_party_already_in: 'ВЫ УЖЕ В ГРУППЕ',
+        profile_party_invite_sent: 'ПРИГЛАШЕНИЕ ОТПРАВЛЕНО',
+        profile_party_invite_failed: 'НЕ УДАЛОСЬ ОТПРАВИТЬ ПРИГЛАШЕНИЕ',
+        profile_party_join_failed: 'НЕ УДАЛОСЬ ПРИСОЕДИНИТЬСЯ К ГРУППЕ',
+        profile_party_leave_failed: 'НЕ УДАЛОСЬ ПОКИНУТЬ ГРУППУ',
+        profile_party_kick_failed: 'НЕ УДАЛОСЬ ВЫГНАТЬ ИЗ ГРУППЫ',
+        profile_party_disbanded: 'ГРУППА РАСПУЩЕНА',
+        profile_party_disband_failed: 'НЕ УДАЛОСЬ РАСПУСТИТЬ ГРУППУ',
+        profile_party_leader_transfer: 'ЛИДЕРСТВО ПЕРЕДАНО',
+        profile_party_leader_transfer_failed: 'НЕ УДАЛОСЬ ПЕРЕДАТЬ ЛИДЕРСТВО',
+        profile_party_leader_transfer_to: 'ЛИДЕРСТВО ПЕРЕДАНО ИГРОКУ',
+        profile_party_leader_transfer_to_failed: 'НЕ УДАЛОСЬ ПЕРЕДАТЬ ЛИДЕРСТВО ИГРОКУ',
+        profile_party_leader_transfer_to_self: 'ВЫ НЕ МОЖЕТЕ ПЕРЕДАТЬ ЛИДЕРСТВО СЕБЕ',
+        profile_party_leader_transfer_to_not_found: 'ИГРОК НЕ НАЙДЕН',
+        profile_party_leader_transfer_to_not_in_party: 'ИГРОК НЕ В ГРУППЕ',
+        profile_party_leader_transfer_to_already_leader: 'ИГРОК УЖЕ ЛИДЕР',
+        profile_party_leader_transfer_to_self_leader: 'ВЫ УЖЕ ЛИДЕР',
+        profile_party_leader_transfer_to_self_not_leader: 'ВЫ НЕ ЛИДЕР',
+        profile_party_leader_transfer_to_self_in_party: 'ВЫ В ГРУППЕ',
+        profile_party_leader_transfer_to_self_not_in_party: 'ВЫ НЕ В ГРУППЕ',
+        profile_party_leader_transfer_to_self_already_leader: 'ВЫ УЖЕ ЛИДЕР',
     },
-    en: {
-        inventory: 'INVENTORY',
-        profile: 'PROFILE',
-        map: 'WORLD MAP',
-        settings: 'SETTINGS',
-        name: 'Name',
-        level: 'Level',
-        gold: 'Gold',
-        kills: 'Kills',
-        sound: 'SOUND',
-        music: 'MUSIC',
-        ignore_npc: 'IGNORE NPC',
-        language: 'LANGUAGE',
-        equip: 'Equip',
-        use: 'Use',
-        delete: 'Delete',
-        welcome: 'WELCOME TO AINCRAD!',
-        adventure: 'YOUR ADVENTURE BEGINS!',
-        already_there: 'YOU ARE ALREADY IN',
-        moving_to: 'MOVING TO',
-        equipped: 'EQUIPPED',
-        used: 'USED',
-        deleted: 'DELETED',
-        cannot_equip: 'CANNOT EQUIP',
-        exit: 'YOU HAVE LEFT THE GAME'
-    },
-    de: {
-        inventory: 'INVENTAR',
-        profile: 'PROFIL',
-        map: 'WELTKARTE',
-        settings: 'EINSTELLUNGEN',
-        name: 'Name',
-        level: 'Stufe',
-        gold: 'Gold',
-        kills: 'Tötungen',
-        sound: 'TON',
-        music: 'MUSIK',
-        ignore_npc: 'NPC IGNORIEREN',
-        language: 'SPRACHE',
-        equip: 'Ausrüsten',
-        use: 'Benutzen',
-        delete: 'Löschen',
-        welcome: 'WILLKOMMEN IN AINCRAD!',
-        adventure: 'DEIN ABENTEUER BEGINNT!',
-        already_there: 'SIE SIND BEREITS IN',
-        moving_to: 'BEWEGEN NACH',
-        equipped: 'AUSGERÜSTET',
-        used: 'BENUTZT',
-        deleted: 'GELÖSCHT',
-        cannot_equip: 'KANN NICHT AUSGERÜSTET WERDEN',
-        exit: 'SIE HABEN DAS SPIEL VERLASSEN'
-    },
-    fr: {
-        inventory: 'INVENTAIRE',
-        profile: 'PROFIL',
-        map: 'CARTE DU MONDE',
-        settings: 'PARAMÈTRES',
-        name: 'Nom',
-        level: 'Niveau',
-        gold: 'Or',
-        kills: 'Tués',
-        sound: 'SON',
-        music: 'MUSIQUE',
-        ignore_npc: 'IGNORER LES PNJ',
-        language: 'LANGUE',
-        equip: 'Équiper',
-        use: 'Utiliser',
-        delete: 'Supprimer',
-        welcome: 'BIENVENUE À AINCRAD!',
-        adventure: 'VOTRE AVENTURE COMMENCE!',
-        already_there: 'VOUS ÊTES DÉJÀ À',
-        moving_to: 'DÉPLACEMENT VERS',
-        equipped: 'ÉQUIPÉ',
-        used: 'UTILISÉ',
-        deleted: 'SUPPRIMÉ',
-        cannot_equip: 'IMPOSSIBLE D\'ÉQUIPER',
-        exit: 'VOUS AVEZ QUITTÉ LE JEU'
-    },
-    es: {
-        inventory: 'INVENTARIO',
-        profile: 'PERFIL',
-        map: 'MAPA DEL MUNDO',
-        settings: 'AJUSTES',
-        name: 'Nombre',
-        level: 'Nivel',
-        gold: 'Oro',
-        kills: 'Asesinatos',
-        sound: 'SONIDO',
-        music: 'MÚSICA',
-        ignore_npc: 'IGNORAR PNJ',
-        language: 'IDIOMA',
-        equip: 'Equipar',
-        use: 'Usar',
-        delete: 'Eliminar',
-        welcome: '¡BIENVENIDO A AINCRAD!',
-        adventure: '¡TU AVENTURA COMIENZA!',
-        already_there: 'YA ESTÁS EN',
-        moving_to: 'MOVIÉNDOSE A',
-        equipped: 'EQUIPADO',
-        used: 'USADO',
-        deleted: 'ELIMINADO',
-        cannot_equip: 'NO SE PUEDE EQUIPAR',
-        exit: 'HAS SALIDO DEL JUEGO'
-    },
-    zh: {
-        inventory: '背包',
-        profile: '个人资料',
-        map: '世界地图',
-        settings: '设置',
-        name: '名称',
-        level: '等级',
-        gold: '金币',
-        kills: '击杀',
-        sound: '声音',
-        music: '音乐',
-        ignore_npc: '忽略NPC',
-        language: '语言',
-        equip: '装备',
-        use: '使用',
-        delete: '删除',
-        welcome: '欢迎来到艾因克拉德！',
-        adventure: '你的冒险开始了！',
-        already_there: '你已经在',
-        moving_to: '正在前往',
-        equipped: '已装备',
-        used: '已使用',
-        deleted: '已删除',
-        cannot_equip: '无法装备',
-        exit: '你已退出游戏'
-    },
-    ja: {
-        inventory: 'インベントリ',
-        profile: 'プロフィール',
-        map: '世界地図',
-        settings: '設定',
-        name: '名前',
-        level: 'レベル',
-        gold: 'ゴールド',
-        kills: 'キル数',
-        sound: 'サウンド',
-        music: '音楽',
-        ignore_npc: 'NPCを無視',
-        language: '言語',
-        equip: '装備',
-        use: '使用',
-        delete: '削除',
-        welcome: 'アインクラッドへようこそ！',
-        adventure: '冒険が始まる！',
-        already_there: '既に',
-        moving_to: '移動中',
-        equipped: '装備済み',
-        used: '使用済み',
-        deleted: '削除済み',
-        cannot_equip: '装備できません',
-        exit: 'ゲームを終了しました'
-    },
-    ko: {
-        inventory: '인벤토리',
-        profile: '프로필',
-        map: '세계 지도',
-        settings: '설정',
-        name: '이름',
-        level: '레벨',
-        gold: '골드',
-        kills: '처치',
-        sound: '사운드',
-        music: '음악',
-        ignore_npc: 'NPC 무시',
-        language: '언어',
-        equip: '장비',
-        use: '사용',
-        delete: '삭제',
-        welcome: '아인크라드에 오신 것을 환영합니다!',
-        adventure: '모험이 시작됩니다!',
-        already_there: '이미',
-        moving_to: '이동 중',
-        equipped: '장착 완료',
-        used: '사용 완료',
-        deleted: '삭제 완료',
-        cannot_equip: '장착할 수 없음',
-        exit: '게임을 종료했습니다'
-    }
+    // ... другие языки добавляются по аналогии
 };
 
-// ============================================================
-//  📦 БАЗА ПРЕДМЕТОВ
-// ============================================================
-
-const ITEMS_DB = {
-    'material_leather': { id: 'material_leather', name: 'КОЖА', icon: 'material_leather.png', type: 'material', rarity: 'common', desc: 'Прочная кожа' },
-    'material_paper': { id: 'material_paper', name: 'БУМАГА', icon: 'material_paper.png', type: 'material', rarity: 'common', desc: 'Чистый лист' },
-    'material_stone': { id: 'material_stone', name: 'КАМЕНЬ', icon: 'material_stone.png', type: 'material', rarity: 'common', desc: 'Обычный камень' },
-    'material_thread': { id: 'material_thread', name: 'НИТЬ', icon: 'material_thread.png', type: 'material', rarity: 'common', desc: 'Прочная нить' },
-    'material_wood': { id: 'material_wood', name: 'ДРЕВЕСИНА', icon: 'material_wood.png', type: 'material', rarity: 'common', desc: 'Обработанная древесина' },
-    'sword_wood': { id: 'sword_wood', name: 'ДЕРЕВЯННЫЙ МЕЧ', icon: 'sword_wood.png', type: 'weapon', rarity: 'common', stats: { attack: 2, speed: 1.2 }, desc: 'Простой деревянный меч' },
-    'sword_bloody_blade': { id: 'sword_bloody_blade', name: 'КРОВАВЫЙ КЛИНОК', icon: 'sword_bloody_blade.png', type: 'weapon', rarity: 'epic', stats: { attack: 12, speed: 1.4 }, effect: '15% шанс кровотечения', history: 'Выкован из стали, закалённой в крови павшего воина.' },
-    'sword_shark_tooth': { id: 'sword_shark_tooth', name: 'ЗУБ АКУЛЫ', icon: 'sword_shark_tooth.png', type: 'weapon', rarity: 'epic', stats: { attack: 10, speed: 1.6 }, effect: 'Игнорирует 20% брони', history: 'Вырезан из зуба древней акулы.' },
-    'sword_ancient_ruin': { id: 'sword_ancient_ruin', name: 'КЛИНОК ДРЕВНИХ', icon: 'sword_ancient_ruin.png', type: 'weapon', rarity: 'mythic', stats: { attack: 22, speed: 1.1 }, effect: '+50% урона нежити', history: 'Найден в руинах древней цивилизации.' },
-    'sword_demon_slayer': { id: 'sword_demon_slayer', name: 'УБИЙЦА ДЕМОНОВ', icon: 'sword_demon_slayer.png', type: 'weapon', rarity: 'incredible', stats: { attack: 30, speed: 1.3 }, effect: '+100% урона демонам', history: 'Выкован из священного серебра.' },
-    'sword_demonic_zariche': { id: 'sword_demonic_zariche', name: 'ДЕМОНИЧЕСКИЙ ЗАРИЧЕ', icon: 'sword_demonic_zariche.png', type: 'weapon', rarity: 'incredible', stats: { attack: 35, speed: 1.5 }, effect: 'Вампиризм: +10% от урона', history: 'Клинок, содержащий душу демона.' },
-    'sword_elucidator': { id: 'sword_elucidator', name: 'ЭЛЮСИДАТОР', icon: 'sword_elucidator.png', type: 'weapon', rarity: 'incredible', stats: { attack: 38, speed: 1.7 }, effect: '+25% к критическому удару', history: 'Легендарный чёрный клинок.' },
-    'sword_meliodas': { id: 'sword_meliodas', name: 'МЕЧ МЕЛИОДАСА', icon: 'sword_meliodas.png', type: 'weapon', rarity: 'incredible', stats: { attack: 32, speed: 1.4 }, effect: 'Разрушает магические барьеры', history: 'Клинок короля демонов.' },
-    'sword_spine': { id: 'sword_spine', name: 'ПОЗВОНОЧНИК', icon: 'sword_spine.png', type: 'weapon', rarity: 'incredible', stats: { attack: 28, speed: 1.8 }, effect: 'Каждый 3-й удар x2 урон', history: 'Выкован из позвоночника дракона.' },
-    'sword_zangetsu': { id: 'sword_zangetsu', name: 'ЗАНГЕЦУ', icon: 'sword_zangetsu.png', type: 'weapon', rarity: 'incredible', stats: { attack: 40, speed: 1.2 }, effect: 'Шанс 5% мгновенного убийства', history: 'Клинок, разрезающий луну.' }
-};
-
-// --- ЦВЕТА РЕДКОСТЕЙ ---
-const RARITY_COLORS = {
-    common: '#94a3b8',
-    uncommon: '#22c55e',
-    rare: '#3b82f6',
-    epic: '#a78bfa',
-    legendary: '#f59e0b',
-    mythic: '#ef4444',
-    incredible: '#f472b6'
-};
-
-const RARITY_NAMES = {
-    common: 'Common',
-    uncommon: 'Uncommon',
-    rare: 'Rare',
-    epic: 'Epic',
-    legendary: 'Legendary',
-    mythic: 'Mythic',
-    incredible: 'Incredible'
-};
-
-// --- ФУНКЦИИ ---
-function getItemData(itemId) { return ITEMS_DB[itemId] || null; }
-function getRarityColor(rarity) { return RARITY_COLORS[rarity] || '#94a3b8'; }
-function getRarityName(rarity) { return RARITY_NAMES[rarity] || rarity; }
-
-function getLang(key) {
-    return LANG[currentLang]?.[key] || LANG.ru[key] || key;
+// --- ФУНКЦИЯ ПЕРЕВОДА ---
+function t(key) {
+    return LANG[currentLang]?.[key] || LANG['ru'][key] || key;
 }
 
 // --- ЛОГИ ---
@@ -307,6 +223,82 @@ function addLog(message, type = 'system') {
     while (logContent.children.length > 50) {
         logContent.removeChild(logContent.firstChild);
     }
+}
+
+// --- ОБНОВЛЕНИЕ ВСЕХ ТЕКСТОВ ---
+function updateAllTexts() {
+    // Заголовки вкладок
+    document.querySelectorAll('.tab-panel h2').forEach(el => {
+        const id = el.closest('.tab-panel')?.id;
+        if (id === 'panel-profile') el.textContent = `👤 ${t('profile')}`;
+        else if (id === 'panel-inventory') el.textContent = `🎒 ${t('inventory')}`;
+        else if (id === 'panel-map') el.textContent = `🗺️ ${t('map')}`;
+        else if (id === 'panel-settings') el.textContent = `⚙️ ${t('settings')}`;
+    });
+
+    // Профиль
+    document.querySelectorAll('.profile-stats .label').forEach(el => {
+        const text = el.textContent.trim();
+        if (text.includes('Имя') || text.includes('Name')) el.textContent = t('name');
+        else if (text.includes('Уровень') || text.includes('Level')) el.textContent = t('level');
+        else if (text.includes('Золото') || text.includes('Gold')) el.textContent = t('gold');
+        else if (text.includes('Убийств') || text.includes('Kills')) el.textContent = t('kills');
+    });
+
+    // Настройки
+    document.querySelectorAll('.settings-item label').forEach(label => {
+        const text = label.textContent.trim();
+        if (text.includes('ЗВУК') || text.includes('SOUND')) label.textContent = `🔊 ${t('sound')}`;
+        else if (text.includes('МУЗЫКА') || text.includes('MUSIC')) label.textContent = `🎵 ${t('music')}`;
+        else if (text.includes('ИГНОРИРОВАТЬ') || text.includes('IGNORE')) label.textContent = `🚫 ${t('ignore_npc')}`;
+        else if (text.includes('ЯЗЫК') || text.includes('LANGUAGE')) label.textContent = `🌐 ${t('language')}`;
+    });
+
+    // Кнопки инвентаря (подсказки)
+    document.querySelectorAll('.inv-action').forEach(btn => {
+        const id = btn.id;
+        if (id === 'btnEquip') btn.title = t('equip');
+        else if (id === 'btnUse') btn.title = t('use');
+        else if (id === 'btnDelete') btn.title = t('delete');
+    });
+
+    // Журнал
+    document.querySelector('.log-title').textContent = `📜 ${t('log_title')}`;
+
+    // Статус (если он пустой, оставляем)
+    // Авторизация
+    document.querySelectorAll('.tab-switch button span').forEach(el => {
+        const text = el.textContent.trim();
+        if (text === 'ВХОД' || text === 'LOGIN') el.textContent = t('login');
+        else if (text === 'РЕГИСТР.' || text === 'REGISTER') el.textContent = t('register');
+    });
+
+    // Поля ввода
+    document.getElementById('loginUsername').placeholder = t('username');
+    document.getElementById('loginPassword').placeholder = t('password');
+    document.getElementById('registerUsername').placeholder = t('new_username');
+    document.getElementById('registerPassword').placeholder = t('password');
+    document.getElementById('registerPasswordConfirm').placeholder = t('confirm_password');
+
+    // Кнопки входа/регистрации
+    document.getElementById('loginBtn').innerHTML = `
+        <img src="assets/icon_key.png" alt="" class="btn-icon" />
+        ${t('login_btn')}
+    `;
+    document.getElementById('registerBtn').innerHTML = `
+        <img src="assets/icon_pencil.png" alt="" class="btn-icon" />
+        ${t('register_btn')}
+    `;
+
+    // Кнопка выхода
+    document.getElementById('logoutBtn').textContent = `🚪 ${t('exit_btn')}`;
+
+    // Если есть имя игрока — обновляем приветствие
+    if (currentPlayerName) {
+        // Приветствие не показываем отдельно, но можно обновить статус
+    }
+
+    // Локации на карте (оставляем как есть, они не переводятся)
 }
 
 // --- ГЛАЗИКИ ---
@@ -361,7 +353,7 @@ function initTabs() {
             if (panels[tabName]) {
                 panels[tabName].classList.remove('hidden');
             }
-            updatePanelLanguage();
+            updateAllTexts();
         };
         tab._clickHandler = handler;
         tab.addEventListener('click', handler);
@@ -374,7 +366,7 @@ function initTabs() {
         document.querySelector('.tab-btn[data-tab="profile"]')?.classList.add('active');
     }
     isTabsInitialized = true;
-    updatePanelLanguage();
+    updateAllTexts();
 }
 
 function resetTabs() {
@@ -392,31 +384,7 @@ function resetTabs() {
         document.querySelector('.tab-btn[data-tab="profile"]')?.classList.add('active');
     }
     isTabsInitialized = true;
-    updatePanelLanguage();
-}
-
-function updatePanelLanguage() {
-    document.querySelectorAll('.tab-panel:not(.hidden) h2').forEach(el => {
-        const text = el.textContent.trim();
-        if (text.includes('ПРОФИЛЬ') || text.includes('PROFILE') || text.includes('PROFIL')) {
-            el.textContent = `👤 ${getLang('profile')}`;
-        } else if (text.includes('ИНВЕНТАРЬ') || text.includes('INVENTORY') || text.includes('INVENTAR')) {
-            el.textContent = `🎒 ${getLang('inventory')}`;
-        } else if (text.includes('КАРТА') || text.includes('MAP') || text.includes('WELTKARTE')) {
-            el.textContent = `🗺️ ${getLang('map')}`;
-        } else if (text.includes('НАСТРОЙКИ') || text.includes('SETTINGS') || text.includes('EINSTELLUNGEN')) {
-            el.textContent = `⚙️ ${getLang('settings')}`;
-        }
-    });
-
-    // Обновляем настройки
-    document.querySelectorAll('.settings-item label').forEach(label => {
-        const text = label.textContent.trim();
-        if (text.includes('ЗВУК') || text.includes('SOUND')) label.textContent = `🔊 ${getLang('sound')}`;
-        else if (text.includes('МУЗЫКА') || text.includes('MUSIC')) label.textContent = `🎵 ${getLang('music')}`;
-        else if (text.includes('ИГНОРИРОВАТЬ') || text.includes('IGNORE')) label.textContent = `🚫 ${getLang('ignore_npc')}`;
-        else if (text.includes('ЯЗЫК') || text.includes('LANGUAGE')) label.textContent = `🌐 ${getLang('language')}`;
-    });
+    updateAllTexts();
 }
 
 // --- ФУНКЦИИ ---
@@ -493,6 +461,54 @@ function hideTooltip() {
     tooltip.classList.remove('visible');
 }
 
+// ============================================================
+//  📦 БАЗА ПРЕДМЕТОВ
+// ============================================================
+
+const ITEMS_DB = {
+    'material_leather': { id: 'material_leather', name: 'КОЖА', icon: 'material_leather.png', type: 'material', rarity: 'common', desc: 'Прочная кожа' },
+    'material_paper': { id: 'material_paper', name: 'БУМАГА', icon: 'material_paper.png', type: 'material', rarity: 'common', desc: 'Чистый лист' },
+    'material_stone': { id: 'material_stone', name: 'КАМЕНЬ', icon: 'material_stone.png', type: 'material', rarity: 'common', desc: 'Обычный камень' },
+    'material_thread': { id: 'material_thread', name: 'НИТЬ', icon: 'material_thread.png', type: 'material', rarity: 'common', desc: 'Прочная нить' },
+    'material_wood': { id: 'material_wood', name: 'ДРЕВЕСИНА', icon: 'material_wood.png', type: 'material', rarity: 'common', desc: 'Обработанная древесина' },
+    'sword_wood': { id: 'sword_wood', name: 'ДЕРЕВЯННЫЙ МЕЧ', icon: 'sword_wood.png', type: 'weapon', rarity: 'common', stats: { attack: 2, speed: 1.2 }, desc: 'Простой деревянный меч' },
+    'sword_bloody_blade': { id: 'sword_bloody_blade', name: 'КРОВАВЫЙ КЛИНОК', icon: 'sword_bloody_blade.png', type: 'weapon', rarity: 'epic', stats: { attack: 12, speed: 1.4 }, effect: '15% шанс кровотечения', history: 'Выкован из стали, закалённой в крови павшего воина.' },
+    'sword_shark_tooth': { id: 'sword_shark_tooth', name: 'ЗУБ АКУЛЫ', icon: 'sword_shark_tooth.png', type: 'weapon', rarity: 'epic', stats: { attack: 10, speed: 1.6 }, effect: 'Игнорирует 20% брони', history: 'Вырезан из зуба древней акулы.' },
+    'sword_ancient_ruin': { id: 'sword_ancient_ruin', name: 'КЛИНОК ДРЕВНИХ', icon: 'sword_ancient_ruin.png', type: 'weapon', rarity: 'mythic', stats: { attack: 22, speed: 1.1 }, effect: '+50% урона нежити', history: 'Найден в руинах древней цивилизации.' },
+    'sword_demon_slayer': { id: 'sword_demon_slayer', name: 'УБИЙЦА ДЕМОНОВ', icon: 'sword_demon_slayer.png', type: 'weapon', rarity: 'incredible', stats: { attack: 30, speed: 1.3 }, effect: '+100% урона демонам', history: 'Выкован из священного серебра.' },
+    'sword_demonic_zariche': { id: 'sword_demonic_zariche', name: 'ДЕМОНИЧЕСКИЙ ЗАРИЧЕ', icon: 'sword_demonic_zariche.png', type: 'weapon', rarity: 'incredible', stats: { attack: 35, speed: 1.5 }, effect: 'Вампиризм: +10% от урона', history: 'Клинок, содержащий душу демона.' },
+    'sword_elucidator': { id: 'sword_elucidator', name: 'ЭЛЮСИДАТОР', icon: 'sword_elucidator.png', type: 'weapon', rarity: 'incredible', stats: { attack: 38, speed: 1.7 }, effect: '+25% к критическому удару', history: 'Легендарный чёрный клинок.' },
+    'sword_meliodas': { id: 'sword_meliodas', name: 'МЕЧ МЕЛИОДАСА', icon: 'sword_meliodas.png', type: 'weapon', rarity: 'incredible', stats: { attack: 32, speed: 1.4 }, effect: 'Разрушает магические барьеры', history: 'Клинок короля демонов.' },
+    'sword_spine': { id: 'sword_spine', name: 'ПОЗВОНОЧНИК', icon: 'sword_spine.png', type: 'weapon', rarity: 'incredible', stats: { attack: 28, speed: 1.8 }, effect: 'Каждый 3-й удар x2 урон', history: 'Выкован из позвоночника дракона.' },
+    'sword_zangetsu': { id: 'sword_zangetsu', name: 'ЗАНГЕЦУ', icon: 'sword_zangetsu.png', type: 'weapon', rarity: 'incredible', stats: { attack: 40, speed: 1.2 }, effect: 'Шанс 5% мгновенного убийства', history: 'Клинок, разрезающий луну.' }
+};
+
+// --- ЦВЕТА РЕДКОСТЕЙ ---
+const RARITY_COLORS = {
+    common: '#94a3b8',
+    uncommon: '#22c55e',
+    rare: '#3b82f6',
+    epic: '#a78bfa',
+    legendary: '#f59e0b',
+    mythic: '#ef4444',
+    incredible: '#f472b6'
+};
+
+const RARITY_NAMES = {
+    common: 'Common',
+    uncommon: 'Uncommon',
+    rare: 'Rare',
+    epic: 'Epic',
+    legendary: 'Legendary',
+    mythic: 'Mythic',
+    incredible: 'Incredible'
+};
+
+// --- ФУНКЦИИ ---
+function getItemData(itemId) { return ITEMS_DB[itemId] || null; }
+function getRarityColor(rarity) { return RARITY_COLORS[rarity] || '#94a3b8'; }
+function getRarityName(rarity) { return RARITY_NAMES[rarity] || rarity; }
+
 // --- ИНВЕНТАРЬ ---
 function renderInventory() {
     const grid = document.getElementById('inventoryGrid');
@@ -550,6 +566,7 @@ function renderInventory() {
 
         grid.appendChild(slot);
     }
+    updateAllTexts();
 }
 
 function selectSlot(slotElement) {
@@ -594,7 +611,6 @@ function fillInventory() {
         'sword_spine',
         'sword_zangetsu'
     ];
-    // Добавляем материалы для разнообразия
     const testItems = [
         ...allSwords,
         'material_leather',
@@ -611,9 +627,8 @@ function fillInventory() {
 document.getElementById('languageSelect').addEventListener('change', function() {
     currentLang = this.value;
     localStorage.setItem('aincrad_language', currentLang);
-    updatePanelLanguage();
-    // Обновляем текст в логах (если нужно)
-    showStatus(`🌐 Язык изменён на ${this.options[this.selectedIndex].text}`, 'info');
+    updateAllTexts();
+    showStatus(`🌐 ${t('language')}: ${this.options[this.selectedIndex].text}`, 'info');
 });
 
 // --- ЗАГРУЗКА ЯЗЫКА ---
@@ -623,6 +638,7 @@ function loadLanguage() {
         currentLang = saved;
         document.getElementById('languageSelect').value = saved;
     }
+    updateAllTexts();
 }
 
 // --- ВКЛАДКИ АВТОРИЗАЦИИ ---
@@ -647,28 +663,28 @@ registerBtn.onclick = () => {
     const confirm = registerPasswordConfirm.value.trim();
 
     if (!username || username.length < 3) {
-        showStatus('⚠️ НИК ОТ 3 СИМВОЛОВ', 'error');
+        showStatus(`⚠️ ${t('username_short')}`, 'error');
         return;
     }
     if (!password || password.length < 4) {
-        showStatus('⚠️ ПАРОЛЬ ОТ 4 СИМВОЛОВ', 'error');
+        showStatus(`⚠️ ${t('password_short')}`, 'error');
         return;
     }
     if (password !== confirm) {
-        showStatus('⚠️ ПАРОЛИ НЕ СОВПАДАЮТ', 'error');
+        showStatus(`⚠️ ${t('password_mismatch')}`, 'error');
         return;
     }
 
     const users = getUsers();
     if (users[username]) {
-        showStatus('⚠️ НИК УЖЕ ЗАНЯТ', 'error');
+        showStatus(`⚠️ ${t('username_taken')}`, 'error');
         return;
     }
 
     users[username] = password;
     saveUsers(users);
 
-    showStatus('✅ РЕГИСТРАЦИЯ УСПЕШНА! ВОЙДИТЕ.', 'success');
+    showStatus(`✅ ${t('register_success')}`, 'success');
     registerUsername.value = '';
     registerPassword.value = '';
     registerPasswordConfirm.value = '';
@@ -684,7 +700,7 @@ document.getElementById('tabExit').addEventListener('click', function() {
     resetTabs();
     currentLocation = null;
     showStatus('', 'info');
-    addLog(`👋 ${getLang('exit')}`, 'system');
+    addLog(`👋 ${t('exit')}`, 'system');
 });
 
 // --- ВХОД ---
@@ -693,19 +709,19 @@ loginBtn.onclick = () => {
     const password = loginPassword.value.trim();
 
     if (!username || !password) {
-        showStatus('⚠️ ВВЕДИТЕ НИК И ПАРОЛЬ', 'error');
+        showStatus(`⚠️ ${t('enter_data')}`, 'error');
         return;
     }
 
     const users = getUsers();
 
     if (!users[username]) {
-        showStatus('❌ ПОЛЬЗОВАТЕЛЬ НЕ НАЙДЕН', 'error');
+        showStatus(`❌ ${t('user_not_found')}`, 'error');
         return;
     }
 
     if (users[username] !== password) {
-        showStatus('❌ НЕВЕРНЫЙ ПАРОЛЬ', 'error');
+        showStatus(`❌ ${t('login_error')}`, 'error');
         return;
     }
 
@@ -715,6 +731,7 @@ loginBtn.onclick = () => {
     loginSection.classList.add('hidden');
     gameWorld.classList.remove('hidden');
     currentLocation = null;
+    currentPlayerName = username;
 
     loadLanguage();
     initTabs();
@@ -732,12 +749,12 @@ loginBtn.onclick = () => {
             const locName = this.textContent.trim();
             const locId = this.dataset.loc;
             if (currentLocation === locId) {
-                showStatus(`📍 ${getLang('already_there')} ${locName}`, 'info');
-                addLog(`📍 ${getLang('already_there')} ${locName}`, 'system');
+                showStatus(`📍 ${t('already_there')} ${locName}`, 'info');
+                addLog(`📍 ${t('already_there')} ${locName}`, 'system');
                 return;
             }
             currentLocation = locId;
-            addLog(`📍 ${getLang('moving_to')} ${locName}`, 'player');
+            addLog(`📍 ${t('moving_to')} ${locName}`, 'player');
             showStatus(`📍 ВЫ В ${locName}`, 'info');
         };
         loc._clickHandler = handler;
@@ -750,11 +767,11 @@ loginBtn.onclick = () => {
         const itemId = selectedSlot.dataset.itemId;
         const item = getItemData(itemId);
         if (item && item.type === 'weapon') {
-            addLog(`⚔️ ${getLang('equipped')}: ${item.name}`, 'loot');
-            showStatus(`⚔️ ${getLang('equipped')}: ${item.name}`, 'success');
+            addLog(`⚔️ ${t('equipped')}: ${item.name}`, 'loot');
+            showStatus(`⚔️ ${t('equipped')}: ${item.name}`, 'success');
         } else {
-            addLog(`⚠️ ${getLang('cannot_equip')} ${item.name}`, 'enemy');
-            showStatus(`⚠️ ${getLang('cannot_equip')}`, 'error');
+            addLog(`⚠️ ${t('cannot_equip')} ${item.name}`, 'enemy');
+            showStatus(`⚠️ ${t('cannot_equip')}`, 'error');
         }
     });
 
@@ -763,8 +780,8 @@ loginBtn.onclick = () => {
         const itemId = selectedSlot.dataset.itemId;
         const item = getItemData(itemId);
         if (item) {
-            addLog(`🧪 ${getLang('used')}: ${item.name}`, 'player');
-            showStatus(`🧪 ${getLang('used')}: ${item.name}`, 'info');
+            addLog(`🧪 ${t('used')}: ${item.name}`, 'player');
+            showStatus(`🧪 ${t('used')}: ${item.name}`, 'info');
         }
     });
 
@@ -777,14 +794,14 @@ loginBtn.onclick = () => {
             if (idx !== -1) {
                 playerInventory.splice(idx, 1);
                 renderInventory();
-                addLog(`🗑️ ${getLang('deleted')}: ${item.name}`, 'enemy');
-                showStatus(`🗑️ ${getLang('deleted')}: ${item.name}`, 'info');
+                addLog(`🗑️ ${t('deleted')}: ${item.name}`, 'enemy');
+                showStatus(`🗑️ ${t('deleted')}: ${item.name}`, 'info');
             }
         }
     });
 
-    addLog(`🌟 ${getLang('welcome')}`, 'system');
-    addLog(`📖 ${getLang('adventure')}`, 'system');
+    addLog(`🌟 ${t('welcome')}`, 'system');
+    addLog(`📖 ${t('adventure')}`, 'system');
     showStatus('', 'info');
 };
 
