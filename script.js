@@ -33,30 +33,143 @@ let selectedSlot = null;
 let playerInventory = [];
 
 // ============================================================
-//  📦 БАЗА ПРЕДМЕТОВ (из ваших спрайтов)
+//  📦 БАЗА ПРЕДМЕТОВ (точные названия из вашего списка)
 // ============================================================
 
 const ITEMS_DB = {
     // === МАТЕРИАЛЫ ===
-    'material_leather': { id: 'material_leather', name: 'КОЖА', icon: 'material_leather.png', type: 'material', rarity: 'common', desc: 'Прочная кожа' },
-    'material_paper': { id: 'material_paper', name: 'БУМАГА', icon: 'material_paper.png', type: 'material', rarity: 'common', desc: 'Чистый лист' },
-    'material_stone': { id: 'material_stone', name: 'КАМЕНЬ', icon: 'material_stone.png', type: 'material', rarity: 'common', desc: 'Обычный камень' },
-    'material_thread': { id: 'material_thread', name: 'НИТЬ', icon: 'material_thread.png', type: 'material', rarity: 'common', desc: 'Прочная нить' },
-    'material_wood': { id: 'material_wood', name: 'ДРЕВЕСИНА', icon: 'material_wood.png', type: 'material', rarity: 'common', desc: 'Обработанная древесина' },
-    // Common
-    'sword_wood': { id: 'sword_wood', name: 'ДЕРЕВЯННЫЙ МЕЧ', icon: 'sword_wood.png', type: 'weapon', rarity: 'common', stats: { attack: 2 }, desc: 'Простой деревянный меч' },
-    // Epic
-    'sword_bloody_blade': { id: 'sword_bloody_blade', name: 'КРОВАВЫЙ КЛИНОК', icon: 'sword_bloody_blade.png', type: 'weapon', rarity: 'epic', stats: { attack: 12 }, desc: 'Клинок, пропитанный кровью' },
-    'sword_shark_tooth': { id: 'sword_shark_tooth', name: 'ЗУБ АКУЛЫ', icon: 'sword_shark_tooth.png', type: 'weapon', rarity: 'epic', stats: { attack: 10 }, desc: 'Острый как зуб акулы' },
-    // Mythic
-    'sword_ancient_ruin': { id: 'sword_ancient_ruin', name: 'КЛИНОК ДРЕВНИХ', icon: 'sword_ancient_ruin.png', type: 'weapon', rarity: 'mythic', stats: { attack: 22 }, desc: 'Оружие из забытой эпохи' },
-    // Incredible
-    'sword_demon_slayer': { id: 'sword_demon_slayer', name: 'УБИЙЦА ДЕМОНОВ', icon: 'sword_demon_slayer.png', type: 'weapon', rarity: 'incredible', stats: { attack: 30 }, desc: 'Выкован для охоты на демонов' },
-    'sword_demonic_zariche': { id: 'sword_demonic_zariche', name: 'ДЕМОНИЧЕСКИЙ ЗАРИЧЕ', icon: 'sword_demonic_zariche.png', type: 'weapon', rarity: 'incredible', stats: { attack: 35 }, desc: 'Тёмный клинок с душой демона' },
-    'sword_elucidator': { id: 'sword_elucidator', name: 'ЭЛЮСИДАТОР', icon: 'sword_elucidator.png', type: 'weapon', rarity: 'incredible', stats: { attack: 38 }, desc: 'Легендарный чёрный клинок' },
-    'sword_meliodas': { id: 'sword_meliodas', name: 'МЕЧ МЕЛИОДАСА', icon: 'sword_meliodas.png', type: 'weapon', rarity: 'incredible', stats: { attack: 32 }, desc: 'Клинок короля демонов' },
-    'sword_spine': { id: 'sword_spine', name: 'ПОЗВОНОЧНИК', icon: 'sword_spine.png', type: 'weapon', rarity: 'incredible', stats: { attack: 28 }, desc: 'Меч из кости древнего зверя' },
-    'sword_zangetsu': { id: 'sword_zangetsu', name: 'ЗАНГЕЦУ', icon: 'sword_zangetsu.png', type: 'weapon', rarity: 'incredible', stats: { attack: 40 }, desc: 'Клинок, разрезающий луну' }
+    'material_leather': {
+        id: 'material_leather',
+        name: 'КОЖА',
+        icon: 'material_leather.png',
+        type: 'material',
+        rarity: 'common',
+        desc: 'Прочная кожа'
+    },
+    'material_paper': {
+        id: 'material_paper',
+        name: 'БУМАГА',
+        icon: 'material_paper.png',
+        type: 'material',
+        rarity: 'common',
+        desc: 'Чистый лист'
+    },
+    'material_stone': {
+        id: 'material_stone',
+        name: 'КАМЕНЬ',
+        icon: 'material_stone.png',
+        type: 'material',
+        rarity: 'common',
+        desc: 'Обычный камень'
+    },
+    'material_thread': {
+        id: 'material_thread',
+        name: 'НИТЬ',
+        icon: 'material_thread.png',
+        type: 'material',
+        rarity: 'common',
+        desc: 'Прочная нить'
+    },
+    'material_wood': {
+        id: 'material_wood',
+        name: 'ДРЕВЕСИНА',
+        icon: 'material_wood.png',
+        type: 'material',
+        rarity: 'common',
+        desc: 'Обработанная древесина'
+    },
+
+    // === ОРУЖИЕ ===
+    'sword_wood': {
+        id: 'sword_wood',
+        name: 'ДЕРЕВЯННЫЙ МЕЧ',
+        icon: 'sword_wood.png',
+        type: 'weapon',
+        rarity: 'common',
+        stats: { attack: 2 },
+        desc: 'Простой деревянный меч'
+    },
+    'sword_bloody_blade': {
+        id: 'sword_bloody_blade',
+        name: 'КРОВАВЫЙ КЛИНОК',
+        icon: 'sword_bloody_blade.png',
+        type: 'weapon',
+        rarity: 'epic',
+        stats: { attack: 12 },
+        desc: 'Клинок, пропитанный кровью'
+    },
+    'sword_shark_tooth': {
+        id: 'sword_shark_tooth',
+        name: 'ЗУБ АКУЛЫ',
+        icon: 'sword_shark_tooth.png',
+        type: 'weapon',
+        rarity: 'epic',
+        stats: { attack: 10 },
+        desc: 'Острый как зуб акулы'
+    },
+    'sword_ancient_ruin': {
+        id: 'sword_ancient_ruin',
+        name: 'КЛИНОК ДРЕВНИХ',
+        icon: 'sword_ancient_ruin.png',
+        type: 'weapon',
+        rarity: 'mythic',
+        stats: { attack: 22 },
+        desc: 'Оружие из забытой эпохи'
+    },
+    'sword_demon_slayer': {
+        id: 'sword_demon_slayer',
+        name: 'УБИЙЦА ДЕМОНОВ',
+        icon: 'sword_demon_slayer.png',
+        type: 'weapon',
+        rarity: 'incredible',
+        stats: { attack: 30 },
+        desc: 'Выкован для охоты на демонов'
+    },
+    'sword_demonic_zariche': {
+        id: 'sword_demonic_zariche',
+        name: 'ДЕМОНИЧЕСКИЙ ЗАРИЧЕ',
+        icon: 'sword_demonic_zariche.png',
+        type: 'weapon',
+        rarity: 'incredible',
+        stats: { attack: 35 },
+        desc: 'Тёмный клинок с душой демона'
+    },
+    'sword_elucidator': {
+        id: 'sword_elucidator',
+        name: 'ЭЛЮСИДАТОР',
+        icon: 'sword_elucidator.png',
+        type: 'weapon',
+        rarity: 'incredible',
+        stats: { attack: 38 },
+        desc: 'Легендарный чёрный клинок'
+    },
+    'sword_meliodas': {
+        id: 'sword_meliodas',
+        name: 'МЕЧ МЕЛИОДАСА',
+        icon: 'sword_meliodas.png',
+        type: 'weapon',
+        rarity: 'incredible',
+        stats: { attack: 32 },
+        desc: 'Клинок короля демонов'
+    },
+    'sword_spine': {
+        id: 'sword_spine',
+        name: 'ПОЗВОНОЧНИК',
+        icon: 'sword_spine.png',
+        type: 'weapon',
+        rarity: 'incredible',
+        stats: { attack: 28 },
+        desc: 'Меч из кости древнего зверя'
+    },
+    'sword_zangetsu': {
+        id: 'sword_zangetsu',
+        name: 'ЗАНГЕЦУ',
+        icon: 'sword_zangetsu.png',
+        type: 'weapon',
+        rarity: 'incredible',
+        stats: { attack: 40 },
+        desc: 'Клинок, разрезающий луну'
+    }
 };
 
 // --- ФУНКЦИИ ДЛЯ РАБОТЫ С ПРЕДМЕТАМИ ---
@@ -207,7 +320,7 @@ function renderInventory() {
             const item = getItemData(itemId);
             if (item) {
                 slot.classList.add('has-item');
-                const count = 1; // позже добавим количество
+                const count = 1;
                 slot.innerHTML = `
                     <div class="item-icon">
                         <img src="assets/${item.icon}" alt="${item.name}" />
@@ -228,12 +341,9 @@ function renderInventory() {
 }
 
 function selectSlot(slotElement) {
-    // Снимаем выделение со всех слотов
     document.querySelectorAll('.inv-slot').forEach(s => s.style.borderColor = '#3a3a3a');
-    // Выделяем выбранный
     slotElement.style.borderColor = '#f0c060';
     selectedSlot = slotElement;
-    // Активируем кнопки
     const hasItem = slotElement.classList.contains('has-item');
     document.querySelectorAll('.inv-action').forEach(btn => {
         btn.classList.toggle('active', hasItem);
