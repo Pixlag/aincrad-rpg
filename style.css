@@ -415,10 +415,10 @@ body {
     box-shadow: 0 0 10px rgba(240, 192, 96, 0.2);
 }
 
-/* Предмет в ячейке — на 2 пикселя меньше */
+/* Предмет в ячейке — 16×16 (как было) */
 .inv-slot .item-icon {
-    width: 14px;
-    height: 14px;
+    width: 16px;
+    height: 16px;
     image-rendering: pixelated;
     display: flex;
     align-items: center;
@@ -426,8 +426,8 @@ body {
 }
 
 .inv-slot .item-icon img {
-    width: 14px;
-    height: 14px;
+    width: 16px;
+    height: 16px;
     image-rendering: pixelated;
     display: block;
     object-fit: contain;
@@ -442,6 +442,15 @@ body {
     font-family: 'Press Start 2P', monospace;
     text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.9);
 }
+
+/* Подсветка ячейки в цвет редкости */
+.inv-slot.selected-common { border-color: #94a3b8; box-shadow: 0 0 12px rgba(148, 163, 184, 0.4); }
+.inv-slot.selected-uncommon { border-color: #22c55e; box-shadow: 0 0 12px rgba(34, 197, 94, 0.4); }
+.inv-slot.selected-rare { border-color: #3b82f6; box-shadow: 0 0 12px rgba(59, 130, 246, 0.4); }
+.inv-slot.selected-epic { border-color: #a78bfa; box-shadow: 0 0 12px rgba(167, 139, 250, 0.4); }
+.inv-slot.selected-legendary { border-color: #f59e0b; box-shadow: 0 0 12px rgba(245, 158, 11, 0.4); }
+.inv-slot.selected-mythic { border-color: #ef4444; box-shadow: 0 0 12px rgba(239, 68, 68, 0.4); }
+.inv-slot.selected-incredible { border-color: #f472b6; box-shadow: 0 0 12px rgba(244, 114, 182, 0.4); }
 
 /* === КНОПКИ ДЕЙСТВИЙ ИНВЕНТАРЯ === */
 .inventory-actions {
@@ -478,7 +487,7 @@ body {
     display: block;
 }
 
-/* === ВСПЛЫВАЮЩЕЕ ОКНО ПРИ НАВЕДЕНИИ === */
+/* === ВСПЛЫВАЮЩЕЕ ОКНО === */
 .item-tooltip {
     position: fixed;
     background: #1a1410;
@@ -542,15 +551,6 @@ body {
     font-style: italic;
 }
 
-/* Цвета редкостей */
-.rarity-common { color: #94a3b8; }
-.rarity-uncommon { color: #22c55e; }
-.rarity-rare { color: #3b82f6; }
-.rarity-epic { color: #a78bfa; }
-.rarity-legendary { color: #f59e0b; }
-.rarity-mythic { color: #ef4444; }
-.rarity-incredible { color: #f472b6; }
-
 /* === КАРТА === */
 .map-locations {
     display: flex;
@@ -596,6 +596,24 @@ body {
 .settings-item label {
     color: #94a3b8;
     cursor: pointer;
+}
+
+.settings-item select {
+    background: #1a1410;
+    color: #d4c5a0;
+    border: 2px solid #3a3a3a;
+    padding: 4px 8px;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 8px;
+    border-radius: 0;
+    image-rendering: pixelated;
+    cursor: pointer;
+    outline: none;
+}
+
+.settings-item select option {
+    background: #1a1410;
+    color: #d4c5a0;
 }
 
 .settings-item input[type="checkbox"] {
@@ -790,6 +808,11 @@ body {
         padding: 4px 8px;
     }
 
+    .settings-item select {
+        font-size: 7px;
+        padding: 3px 6px;
+    }
+
     .inventory-grid {
         max-width: 240px;
         gap: 4px;
@@ -798,15 +821,6 @@ body {
     .inv-slot {
         min-height: 40px;
         max-height: 40px;
-    }
-
-    .inv-slot .item-icon {
-        width: 12px;
-        height: 12px;
-    }
-    .inv-slot .item-icon img {
-        width: 12px;
-        height: 12px;
     }
 
     .log-content {
