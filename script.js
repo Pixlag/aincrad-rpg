@@ -33,7 +33,7 @@ let selectedSlot = null;
 let playerInventory = [];
 
 // ============================================================
-//  📦 БАЗА ПРЕДМЕТОВ (точные названия из вашего списка)
+//  📦 БАЗА ПРЕДМЕТОВ
 // ============================================================
 
 const ITEMS_DB = {
@@ -303,7 +303,7 @@ function saveUsers(users) {
     localStorage.setItem('aincrad_users', JSON.stringify(users));
 }
 
-// --- ИНВЕНТАРЬ ---
+// --- ИНВЕНТАРЬ (без рюкзака) ---
 function renderInventory() {
     const grid = document.getElementById('inventoryGrid');
     grid.innerHTML = '';
