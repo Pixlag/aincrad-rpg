@@ -683,7 +683,52 @@ body {
 .log-entry.quest {
     color: #a78bfa;
 }
+/* === ИНВЕНТАРЬ === */
+.inventory-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
+    max-width: 340px;
+    margin: 0 auto;
+    padding: 4px;
+}
 
+.inv-slot {
+    aspect-ratio: 1;
+    min-height: 56px;
+    max-height: 56px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid #3a3a3a;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    image-rendering: pixelated;
+    transition: all 0.15s;
+    cursor: pointer;
+    position: relative;
+    background-image: url('assets/inventory_slot.png');
+    background-size: cover;
+    background-position: center;
+}
+
+/* Предмет в ячейке — 28×28 (почти на всю ячейку) */
+.inv-slot .item-icon {
+    width: 28px;
+    height: 28px;
+    image-rendering: pixelated;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.inv-slot .item-icon img {
+    width: 28px;
+    height: 28px;
+    image-rendering: pixelated;
+    display: block;
+    object-fit: contain;
+}
 /* === КНОПКА ВЫХОДА (СТАРАЯ, СКРЫТА) === */
 #logoutBtn {
     display: none;
